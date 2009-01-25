@@ -1,22 +1,15 @@
-# -*- ruby -*-
+# Generates SOAP stubs for Salesforce Enterprise API.
+# Requires a /config/salesforce/enterprise.wsdl.xml
 
 require 'rubygems'
-require 'hoe'
-require './lib/docusign.rb'
-
 gem 'soap4r'
 require 'wsdl/soap/wsdl2ruby'
-
-Hoe.new('docusign', Docusign::VERSION) do |p|
-  p.rubyforge_name = 'docusign' # if different than lowercase project name
-  p.developer('Leigh Caplan', 'texel1@gmail.com')
-end
 
 namespace :docusign do
   namespace :services do
     desc "Generate SOAP stubs for Salesforce API"
-    task :generate do
-      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/DocuSign3.0API.wsdl")
+    task :generate => [:environment] do
+      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/../lib/DocuSign3.0API.wsdl")
       wsdl2ruby('docusign', 'Docusign', "file://#{wsdl_path}")
     end
   end
@@ -27,7 +20,7 @@ private
 def wsdl2ruby(name, module_name, url)
   g = WSDL::SOAP::WSDL2Ruby.new
   g.location = url
-  g.basedir = File.expand_path(File.dirname(__FILE__) + "/lib/")
+  g.basedir = File.expand_path(File.dirname(__FILE__) + "/../lib/")
   g.opt['classdef'] = name
   g.opt['driver'] = nil
   g.opt['module_path'] = module_name
@@ -35,5 +28,3 @@ def wsdl2ruby(name, module_name, url)
   g.opt['force'] = true
   g.run
 end
-
-# vim: syntax=Ruby
