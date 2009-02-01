@@ -3,11 +3,14 @@ Manifest.txt
 README.txt
 Rakefile
 bin/docusign
-lib/docusign.rb
+docusign.gemspec
 lib/DocuSign3.0API.wsdl
+lib/docusign.rb
 lib/docusign/auth_header_handler.rb
 lib/docusign/base.rb
 lib/docusign/docusign.rb
 lib/docusign/docusignDriver.rb
 lib/docusign/docusignMappingRegistry.rb
+tasks/docusign_tasks.rake
+test.rb
 test/test_docusign.rb

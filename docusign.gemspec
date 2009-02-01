@@ -1,4 +1,3 @@
-(in /Users/texel/Documents/docusign/git/docusign)
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
@@ -13,7 +12,7 @@ Gem::Specification.new do |s|
   s.email = ["texel1@gmail.com"]
   s.executables = ["docusign"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
-  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "bin/docusign", "lib/docusign.rb", "lib/DocuSign3.0API.wsdl", "lib/docusign/auth_header_handler.rb", "lib/docusign/base.rb", "lib/docusign/docusign.rb", "lib/docusign/docusignDriver.rb", "lib/docusign/docusignMappingRegistry.rb", "test/test_docusign.rb"]
+  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "bin/docusign", "docusign.gemspec", "lib/DocuSign3.0API.wsdl", "lib/docusign.rb", "lib/docusign/auth_header_handler.rb", "lib/docusign/base.rb", "lib/docusign/docusign.rb", "lib/docusign/docusignDriver.rb", "lib/docusign/docusignMappingRegistry.rb", "tasks/docusign_tasks.rake", "test.rb", "test/test_docusign.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://www.docusign.com}
   s.rdoc_options = ["--main", "README.txt"]

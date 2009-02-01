@@ -12,6 +12,11 @@ Hoe.new('docusign', Docusign::VERSION) do |p|
   p.developer('Leigh Caplan', 'texel1@gmail.com')
 end
 
+task :cultivate do
+  system "touch Manifest.txt; rake check_manifest | grep -v \"(in \" | patch"
+  system "rake debug_gem | grep -v \"(in \" > `basename \\`pwd\\``.gemspec"
+end
+
 namespace :docusign do
   namespace :services do
     desc "Generate SOAP stubs for Salesforce API"
