@@ -1,5 +1,6 @@
 require 'soap/mapping'
-require File.expand_path(File.dirname(__FILE__) + '/docusign')
+require 'docusign'
+# require File.expand_path(File.dirname(__FILE__) + '/docusign')
 
 module Docusign
 

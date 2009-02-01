@@ -1,11 +1,16 @@
-require File.expand_path(File.dirname(__FILE__) + '/docusign.rb')
-require File.expand_path(File.dirname(__FILE__) + '/docusignMappingRegistry.rb')
-require 'soap/rpc/driver'
+# require File.expand_path(File.dirname(__FILE__) + '/docusign.rb')
+# require File.expand_path(File.dirname(__FILE__) + '/docusignMappingRegistry.rb')
+# require 'docusign'
+# require 'lib/docusignMappingRegistry'
+ require 'soap/rpc/driver'
+
+#require 'wss4r/rpc/wssdriver'
+
 
 module Docusign
 
 class APIServiceSoap < ::SOAP::RPC::Driver
-  DefaultEndpointUrl = "https://test.docusign.net/api/3.0/api.asmx"
+  DefaultEndpointUrl = "https://www.docusign.net/api/3.0/api.asmx"
 
   Methods = [
     [ "http://www.docusign.net/API/3.0/CreateEnvelope",
@@ -151,6 +156,10 @@ private
   def init_methods
     Methods.each do |definitions|
       opt = definitions.last
+      opt.merge!({
+            :use_default_namespace => false,
+            :attributeformdefault => true
+          })
       if opt[:request_style] == :document
         add_document_operation(*definitions)
       else
