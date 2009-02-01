@@ -1,14 +1,13 @@
 = docusign
 
-* FIX (url)
+http://www.docusign.com
+http://www.github.com/texel/docusign
 
 == DESCRIPTION:
 
-FIX (describe your package)
+A library for communicating with the Docusign API via SOAP.
 
 == FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
 
 == SYNOPSIS:
 
@@ -26,7 +25,7 @@ FIX (describe your package)
 
 (The MIT License)
 
-Copyright (c) 2009 FIX
+Copyright (c) 2009 Leigh Caplan
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

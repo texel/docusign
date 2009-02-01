@@ -4,4 +4,10 @@ README.txt
 Rakefile
 bin/docusign
 lib/docusign.rb
+lib/DocuSign3.0API.wsdl
+lib/docusign/auth_header_handler.rb
+lib/docusign/base.rb
+lib/docusign/docusign.rb
+lib/docusign/docusignDriver.rb
+lib/docusign/docusignMappingRegistry.rb
 test/test_docusign.rb

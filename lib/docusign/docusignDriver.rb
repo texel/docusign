@@ -157,7 +157,6 @@ private
     Methods.each do |definitions|
       opt = definitions.last
       opt.merge!({
-            :use_default_namespace => false,
             :attributeformdefault => true
           })
       if opt[:request_style] == :document
