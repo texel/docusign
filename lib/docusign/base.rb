@@ -1,14 +1,17 @@
 module Docusign
   class Base
     
-    class << self
-      attr_accessor :user_name, :account_id
-      
-      def login(user_name, password)
+    class << self    
+      def login(options={})
+        
         connection  = Docusign::APIServiceSoap.new
-        header      = AuthHeaderHandler.new(user_name, password)
+        header      = AuthHeaderHandler.new(options.delete(:user_name), options.delete(:password))
         
         connection.headerhandler << header
+        
+        options.each do |key, value|
+          connection.send("#{key}=", value)
+        end
         
         connection
       end

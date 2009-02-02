@@ -12,5 +12,4 @@ lib/docusign/docusign.rb
 lib/docusign/docusignDriver.rb
 lib/docusign/docusignMappingRegistry.rb
 tasks/docusign_tasks.rake
-test.rb
 test/test_docusign.rb
