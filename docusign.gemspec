@@ -1,8 +1,23 @@
+# Copyright (C) DocuSign, Inc.  All rights reserved.
+# 
+# This source code is intended only as a supplement to DocuSign SDK 
+# and/or on-line documentation.
+# 
+# This sample is designed to demonstrate DocuSign features and is not intended 
+# for production use. Code and policy for a production application must be 
+# developed to meet the specific data and security requirements of the 
+# application.
+# 
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+# KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+# PARTICULAR PURPOSE.
+
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
   s.name = %q{docusign}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Leigh Caplan"]

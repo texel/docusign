@@ -7,41 +7,33 @@ http://www.github.com/texel/docusign
 
 A library for communicating with the Docusign API via SOAP.
 
-== FEATURES/PROBLEMS:
-
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+connection = Docusign::Base.login(
+  :user_name    => 'your_user_name',
+  :password     => 'your_password',
+  :endpoint_url => 'http://demo.docusign.net/API/3.0'
+)
 
-== REQUIREMENTS:
-
-* FIX (list of requirements)
+connection.requestStatus :envelopeID => '12345'
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+sudo gem install texel-docusign
 
 == LICENSE:
 
-(The MIT License)
+Copyright (C) DocuSign, Inc.  All rights reserved.
 
-Copyright (c) 2009 Leigh Caplan
+This source code is intended only as a supplement to DocuSign SDK 
+and/or on-line documentation.
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+This sample is designed to demonstrate DocuSign features and is not intended 
+for production use. Code and policy for a production application must be 
+developed to meet the specific data and security requirements of the 
+application.
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+PARTICULAR PURPOSE.
