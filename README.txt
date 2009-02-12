@@ -18,8 +18,8 @@ connection = Docusign::Base.login(
 connection.requestStatus :envelopeID => '12345'
 
 == INSTALL:
-
-sudo gem install texel-docusign
+1) $ gem sources -a http://gems.github.com (you only have to do this once)
+2) $ sudo gem install texel-docusign
 
 == LICENSE:
 
