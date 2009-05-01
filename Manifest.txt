@@ -4,7 +4,7 @@ README.txt
 Rakefile
 bin/docusign
 docusign.gemspec
-lib/DocuSign3.0API.wsdl
+lib/DocuSign3.0.10API.wsdl
 lib/docusign.rb
 lib/docusign/auth_header_handler.rb
 lib/docusign/base.rb
