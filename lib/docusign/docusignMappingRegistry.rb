@@ -13,8 +13,8 @@
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+require 'docusign.rb'
 require 'soap/mapping'
-require 'docusign'
 
 module Docusign
 

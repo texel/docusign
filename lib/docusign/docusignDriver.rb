@@ -164,9 +164,7 @@ private
   def init_methods
     Methods.each do |definitions|
       opt = definitions.last
-      opt.merge!({
-            :attributeformdefault => true
-          })
+      opt.merge! :attributeformdefault => true
       if opt[:request_style] == :document
         add_document_operation(*definitions)
       else

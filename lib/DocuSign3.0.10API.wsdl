@@ -25,6 +25,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="AuthoritativeCopy" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="Notification" type="tns:Notification" />
           <s:element minOccurs="0" maxOccurs="1" name="EnvelopeAttachment" type="tns:ArrayOfAttachment" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnforceSignerVisibility" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDocument">
@@ -38,6 +39,23 @@
           <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PDFBytes" type="s:base64Binary" />
           <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" default="false" name="TransformPdfFields" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileExtension" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MatchBoxes" type="tns:ArrayOfMatchBox" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMatchBox">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MatchBox" type="tns:MatchBox" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MatchBox">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PageNumber" type="s:positiveInteger" />
+          <s:element minOccurs="1" maxOccurs="1" name="XPosition" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="YPosition" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Width" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Height" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfRecipient">
@@ -49,6 +67,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:positiveInteger" />
           <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SignerName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:RecipientTypeCode" />
           <s:element minOccurs="1" maxOccurs="1" name="AccessCode" nillable="true" type="s:string" />
@@ -63,6 +82,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="AutoNavigation" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="RecipientAttachment" type="tns:ArrayOfAttachment" />
           <s:element minOccurs="0" maxOccurs="1" name="Note" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateLocked" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateRequired" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="RecipientTypeCode">
@@ -70,6 +92,7 @@
           <s:enumeration value="Signer" />
           <s:enumeration value="CarbonCopy" />
           <s:enumeration value="CertifiedDelivery" />
+          <s:enumeration value="InPersonSigner" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="RecipientSignatureInfo">
@@ -202,7 +225,13 @@
           <s:element minOccurs="0" maxOccurs="1" name="CustomTabLocked" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="CustomTabDisableAutoSize" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="CustomTabListItems" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomTabListValues" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomTabListSelectedValue" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CustomTabRadioGroupName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomTabValidationPattern" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomTabValidationMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateLocked" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateRequired" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="AnchorTab">
@@ -341,6 +370,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="EnvelopeIdStamping" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="AuthoritativeCopy" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="EnvelopeAttachment" type="tns:ArrayOfAttachment" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentStatuses" type="tns:ArrayOfDocumentStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="FormData" type="tns:FormData" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfRecipientStatus">
@@ -368,6 +399,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="CustomFields" type="tns:ArrayOfString" />
           <s:element minOccurs="0" maxOccurs="1" name="TabStatuses" type="tns:ArrayOfTabStatus" />
           <s:element minOccurs="0" maxOccurs="1" name="RecipientAttachment" type="tns:ArrayOfAttachment" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EsignAgreementInformation" type="tns:RecipientStatusEsignAgreementInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="FormData" type="tns:FormData" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="RecipientStatusCode">
@@ -424,7 +458,42 @@
           <s:element minOccurs="0" maxOccurs="1" name="TabLabel" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TabName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="TabValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentID" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="PageNumber" type="s:nonNegativeInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValidationPattern" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListValues" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListSelectedValue" type="s:string" />
         </s:sequence>
+      </s:complexType>
+      <s:complexType name="RecipientStatusEsignAgreementInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountEsignId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserEsignId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgreementDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="xfdf" type="tns:FormDataXfdf" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormDataXfdf">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="fields" type="tns:ArrayOfFormDataXfdfField" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFormDataXfdfField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="field" type="tns:FormDataXfdfField" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormDataXfdfField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="value" type="s:string" />
+        </s:sequence>
+        <s:attribute name="name" type="s:string" />
       </s:complexType>
       <s:simpleType name="EnvelopeStatusCode">
         <s:restriction base="s:string">
@@ -438,6 +507,7 @@
           <s:enumeration value="Completed" />
           <s:enumeration value="Declined" />
           <s:enumeration value="TimedOut" />
+          <s:enumeration value="Template" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="VaultingDetails">
@@ -445,6 +515,19 @@
           <s:element minOccurs="0" maxOccurs="1" name="EODTransactionName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EODTransactionID" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="EODDocumentProfileID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentStatus" type="tns:DocumentStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sequence" type="s:positiveInteger" />
         </s:sequence>
       </s:complexType>
       <s:element name="CreateAndSendEnvelope">
@@ -491,7 +574,9 @@
           <s:element minOccurs="0" maxOccurs="1" name="PreviousUserName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PreviousEmail" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="PreviousRoutingOrder" type="s:unsignedShort" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreviousSignerName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CorrectedUserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CorrectedSignerName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CorrectedEmail" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="CorrectedCaptiveInfo" type="tns:RecipientCorrectionCorrectedCaptiveInfo" />
           <s:element minOccurs="0" maxOccurs="1" name="CorrectedAccessCode" type="s:string" />
@@ -578,8 +663,60 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PDFBytes" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentID" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentType" type="tns:DocumentType" />
         </s:sequence>
       </s:complexType>
+      <s:simpleType name="DocumentType">
+        <s:restriction base="s:string">
+          <s:enumeration value="SUMMARY" />
+          <s:enumeration value="CONTENT" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="RequestDocumentPDFsEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestDocumentPDFsExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestDocumentPDFsExResult" type="tns:DocumentPDFs" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestDocumentPDFsRecipientsView">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RecipientName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RecipientEmail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestDocumentPDFsRecipientsViewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestDocumentPDFsRecipientsViewResult" type="tns:DocumentPDFs" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestStatusEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestStatusExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestStatusExResult" type="tns:EnvelopeStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RequestStatus">
         <s:complexType>
           <s:sequence>
@@ -594,7 +731,7 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="RequestStatuses">
+      <s:element name="RequestStatusesEx">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="EnvelopeStatusFilter" type="tns:EnvelopeStatusFilter" />
@@ -650,10 +787,10 @@
           <s:enumeration value="DepositFailed" />
         </s:restriction>
       </s:simpleType>
-      <s:element name="RequestStatusesResponse">
+      <s:element name="RequestStatusesExResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="RequestStatusesResult" type="tns:FilteredEnvelopeStatuses" />
+            <s:element minOccurs="0" maxOccurs="1" name="RequestStatusesExResult" type="tns:FilteredEnvelopeStatuses" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -669,6 +806,20 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="EnvelopeStatus" type="tns:EnvelopeStatus" />
         </s:sequence>
       </s:complexType>
+      <s:element name="RequestStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeStatusFilter" type="tns:EnvelopeStatusFilter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestStatusesResult" type="tns:FilteredEnvelopeStatuses" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetRecipientEsignList">
         <s:complexType>
           <s:sequence>
@@ -702,6 +853,35 @@
           <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="Esign" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReservedRecipientEmail" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReservedRecipientNames" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRecipientList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SenderAccountId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RecipientEmail" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRecipientListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRecipientListResult" type="tns:RecipientList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RecipientList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReservedRecipientEmail" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="MultipleUsers" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientName" type="tns:ArrayOfString2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RecipientName" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="VoidEnvelope">
@@ -763,6 +943,7 @@
           <s:enumeration value="RSASecureID" />
           <s:enumeration value="Biometric" />
           <s:enumeration value="None" />
+          <s:enumeration value="KnowledgeBasedAuth" />
         </s:restriction>
       </s:simpleType>
       <s:complexType name="RequestRecipientTokenClientURLs">
@@ -824,12 +1005,39 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="EnabledFeaturesSet" type="tns:ArrayOfString2" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnabledFeaturesSet" type="tns:ArrayOfString3" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfString2">
+      <s:complexType name="ArrayOfString3">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="EnabledFeatures" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAccountSettingsList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccountId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccountSettingsListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccountSettingsListResult" type="tns:AccountSettingsList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccountSettingsList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AccountSetting" type="tns:AccountSetting" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccountSetting">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TestSetting" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="AcknowledgeAuthoritativeCopyExport">
@@ -907,6 +1115,322 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CreateEnvelopeFromTemplates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TemplateReferences" type="tns:ArrayOfTemplateReference" />
+            <s:element minOccurs="0" maxOccurs="1" name="Recipients" type="tns:ArrayOfRecipient1" />
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeInformation" type="tns:EnvelopeInformation" />
+            <s:element minOccurs="1" maxOccurs="1" name="ActivateEnvelope" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTemplateReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TemplateReference" nillable="true" type="tns:TemplateReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TemplateReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" default="SOAP" name="TemplateLocation" type="tns:TemplateLocationCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="Template" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Document" type="tns:Document" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoleAssignments" type="tns:ArrayOfTemplateReferenceRoleAssignment" />
+          <s:element minOccurs="0" maxOccurs="1" name="FieldData" type="tns:TemplateReferenceFieldData" />
+          <s:element minOccurs="0" maxOccurs="1" name="AdditionalTabs" type="tns:ArrayOfTab" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sequence" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateAttachments" type="tns:ArrayOfAttachment" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TemplateLocationCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="SOAP" />
+          <s:enumeration value="PDFMetaData" />
+          <s:enumeration value="Server" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTemplateReferenceRoleAssignment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RoleAssignment" type="tns:TemplateReferenceRoleAssignment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TemplateReferenceRoleAssignment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RoleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientID" type="s:positiveInteger" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TemplateReferenceFieldData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DataValues" type="tns:ArrayOfTemplateReferenceFieldDataDataValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTemplateReferenceFieldDataDataValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DataValue" type="tns:TemplateReferenceFieldDataDataValue" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TemplateReferenceFieldDataDataValue">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TabLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRecipient1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Recipient" nillable="true" type="tns:Recipient" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EnvelopeInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailBlurb" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigningLocation" type="tns:SigningLocationCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomFields" type="tns:ArrayOfCustomField" />
+          <s:element minOccurs="0" maxOccurs="1" name="VaultingOptions" type="tns:VaultingOptions" />
+          <s:element minOccurs="0" maxOccurs="1" name="AutoNavigation" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeIdStamping" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthoritativeCopy" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Notification" type="tns:Notification" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnforceSignerVisibility" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateEnvelopeFromTemplatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateEnvelopeFromTemplatesResult" type="tns:EnvelopeStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusInDocuSignConnectFormat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusInDocuSignConnectFormatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatusInDocuSignConnectFormatResult" type="tns:DocuSignEnvelopeInformation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DocuSignEnvelopeInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeStatus" type="tns:EnvelopeStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentPDFs" type="tns:ArrayOfDocumentPDF" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentPDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentPDF" type="tns:DocumentPDF" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PurgeDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PurgeDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PurgeDocumentsResult" type="tns:PurgeDocumentStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PurgeDocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PurgeDocumentSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="PurgeDocumentError" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveTemplate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnvelopeTemplate" type="tns:EnvelopeTemplate" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EnvelopeTemplate">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeTemplateDefinition" type="tns:EnvelopeTemplateDefinition" />
+          <s:element minOccurs="0" maxOccurs="1" name="Envelope" type="tns:Envelope" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EnvelopeTemplateDefinition">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Shared" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplatePassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="PageCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveTemplateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveTemplateResult" type="tns:SaveTemplateResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SaveTemplateResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadTemplate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TemplateXML" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Shared" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadTemplateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadTemplateResult" type="tns:SaveTemplateResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestTemplates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestTemplatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestTemplatesResult" type="tns:EnvelopeTemplates" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EnvelopeTemplates">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EnvelopeTemplateDefinition" type="tns:EnvelopeTemplateDefinition" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RequestTemplate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TemplateID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="IncludeDocumentBytes" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RequestTemplateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RequestTemplateResult" type="tns:EnvelopeTemplate" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticationToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GoToEnvelopeID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticationTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAuthenticationTokenResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAddressBookItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccountID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAddressBookItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAddressBookItemsResult" type="tns:ArrayOfAddressBookItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAddressBookItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressBookItem" nillable="true" type="tns:AddressBookItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressBookItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressBookID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Shared" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Created" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Owner" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateAddressBookItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressBookItems" type="tns:ArrayOfAddressBookItem" />
+            <s:element minOccurs="1" maxOccurs="1" name="ReturnAddressBook" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateAddressBookItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateAddressBookItemsResult" type="tns:UpdateAddressBookResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UpdateAddressBookResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressBookItems" type="tns:ArrayOfAddressBookItem1" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddressBookItem1">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressBookItem" type="tns:AddressBookItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RemoveAddressBookItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressBookRemoveItems" type="tns:ArrayOfAddressBookRemoveItem" />
+            <s:element minOccurs="1" maxOccurs="1" name="ReturnAddressBook" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAddressBookRemoveItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressBookRemoveItem" nillable="true" type="tns:AddressBookRemoveItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressBookRemoveItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressBookID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RemoveAddressBookItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveAddressBookItemsResult" type="tns:UpdateAddressBookResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="CreateEnvelopeSoapIn">
@@ -939,11 +1463,35 @@
   <wsdl:message name="RequestDocumentPDFsSoapOut">
     <wsdl:part name="parameters" element="tns:RequestDocumentPDFsResponse" />
   </wsdl:message>
+  <wsdl:message name="RequestDocumentPDFsExSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestDocumentPDFsEx" />
+  </wsdl:message>
+  <wsdl:message name="RequestDocumentPDFsExSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestDocumentPDFsExResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestDocumentPDFsRecipientsViewSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestDocumentPDFsRecipientsView" />
+  </wsdl:message>
+  <wsdl:message name="RequestDocumentPDFsRecipientsViewSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestDocumentPDFsRecipientsViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestStatusExSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestStatusEx" />
+  </wsdl:message>
+  <wsdl:message name="RequestStatusExSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestStatusExResponse" />
+  </wsdl:message>
   <wsdl:message name="RequestStatusSoapIn">
     <wsdl:part name="parameters" element="tns:RequestStatus" />
   </wsdl:message>
   <wsdl:message name="RequestStatusSoapOut">
     <wsdl:part name="parameters" element="tns:RequestStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestStatusesExSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestStatusesEx" />
+  </wsdl:message>
+  <wsdl:message name="RequestStatusesExSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestStatusesExResponse" />
   </wsdl:message>
   <wsdl:message name="RequestStatusesSoapIn">
     <wsdl:part name="parameters" element="tns:RequestStatuses" />
@@ -956,6 +1504,12 @@
   </wsdl:message>
   <wsdl:message name="GetRecipientEsignListSoapOut">
     <wsdl:part name="parameters" element="tns:GetRecipientEsignListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRecipientListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRecipientList" />
+  </wsdl:message>
+  <wsdl:message name="GetRecipientListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRecipientListResponse" />
   </wsdl:message>
   <wsdl:message name="VoidEnvelopeSoapIn">
     <wsdl:part name="parameters" element="tns:VoidEnvelope" />
@@ -981,6 +1535,12 @@
   <wsdl:message name="GetAccountMembershipFeaturesListSoapOut">
     <wsdl:part name="parameters" element="tns:GetAccountMembershipFeaturesListResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAccountSettingsListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccountSettingsList" />
+  </wsdl:message>
+  <wsdl:message name="GetAccountSettingsListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccountSettingsListResponse" />
+  </wsdl:message>
   <wsdl:message name="AcknowledgeAuthoritativeCopyExportSoapIn">
     <wsdl:part name="parameters" element="tns:AcknowledgeAuthoritativeCopyExport" />
   </wsdl:message>
@@ -1005,6 +1565,72 @@
   <wsdl:message name="PingSoapOut">
     <wsdl:part name="parameters" element="tns:PingResponse" />
   </wsdl:message>
+  <wsdl:message name="CreateEnvelopeFromTemplatesSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateEnvelopeFromTemplates" />
+  </wsdl:message>
+  <wsdl:message name="CreateEnvelopeFromTemplatesSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateEnvelopeFromTemplatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusInDocuSignConnectFormatSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatusInDocuSignConnectFormat" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusInDocuSignConnectFormatSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatusInDocuSignConnectFormatResponse" />
+  </wsdl:message>
+  <wsdl:message name="PurgeDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:PurgeDocuments" />
+  </wsdl:message>
+  <wsdl:message name="PurgeDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:PurgeDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveTemplateSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveTemplate" />
+  </wsdl:message>
+  <wsdl:message name="SaveTemplateSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadTemplateSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadTemplate" />
+  </wsdl:message>
+  <wsdl:message name="UploadTemplateSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestTemplatesSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestTemplates" />
+  </wsdl:message>
+  <wsdl:message name="RequestTemplatesSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestTemplatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RequestTemplateSoapIn">
+    <wsdl:part name="parameters" element="tns:RequestTemplate" />
+  </wsdl:message>
+  <wsdl:message name="RequestTemplateSoapOut">
+    <wsdl:part name="parameters" element="tns:RequestTemplateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticationTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAuthenticationToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticationTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAuthenticationTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAddressBookItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAddressBookItems" />
+  </wsdl:message>
+  <wsdl:message name="GetAddressBookItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAddressBookItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAddressBookItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateAddressBookItems" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAddressBookItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateAddressBookItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAddressBookItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveAddressBookItems" />
+  </wsdl:message>
+  <wsdl:message name="RemoveAddressBookItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveAddressBookItemsResponse" />
+  </wsdl:message>
   <wsdl:portType name="APIServiceSoap">
     <wsdl:operation name="CreateEnvelope">
       <wsdl:input message="tns:CreateEnvelopeSoapIn" />
@@ -1026,9 +1652,25 @@
       <wsdl:input message="tns:RequestDocumentPDFsSoapIn" />
       <wsdl:output message="tns:RequestDocumentPDFsSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="RequestDocumentPDFsEx">
+      <wsdl:input message="tns:RequestDocumentPDFsExSoapIn" />
+      <wsdl:output message="tns:RequestDocumentPDFsExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestDocumentPDFsRecipientsView">
+      <wsdl:input message="tns:RequestDocumentPDFsRecipientsViewSoapIn" />
+      <wsdl:output message="tns:RequestDocumentPDFsRecipientsViewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestStatusEx">
+      <wsdl:input message="tns:RequestStatusExSoapIn" />
+      <wsdl:output message="tns:RequestStatusExSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="RequestStatus">
       <wsdl:input message="tns:RequestStatusSoapIn" />
       <wsdl:output message="tns:RequestStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestStatusesEx">
+      <wsdl:input message="tns:RequestStatusesExSoapIn" />
+      <wsdl:output message="tns:RequestStatusesExSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RequestStatuses">
       <wsdl:input message="tns:RequestStatusesSoapIn" />
@@ -1037,6 +1679,10 @@
     <wsdl:operation name="GetRecipientEsignList">
       <wsdl:input message="tns:GetRecipientEsignListSoapIn" />
       <wsdl:output message="tns:GetRecipientEsignListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipientList">
+      <wsdl:input message="tns:GetRecipientListSoapIn" />
+      <wsdl:output message="tns:GetRecipientListSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="VoidEnvelope">
       <wsdl:input message="tns:VoidEnvelopeSoapIn" />
@@ -1054,6 +1700,10 @@
       <wsdl:input message="tns:GetAccountMembershipFeaturesListSoapIn" />
       <wsdl:output message="tns:GetAccountMembershipFeaturesListSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetAccountSettingsList">
+      <wsdl:input message="tns:GetAccountSettingsListSoapIn" />
+      <wsdl:output message="tns:GetAccountSettingsListSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="AcknowledgeAuthoritativeCopyExport">
       <wsdl:input message="tns:AcknowledgeAuthoritativeCopyExportSoapIn" />
       <wsdl:output message="tns:AcknowledgeAuthoritativeCopyExportSoapOut" />
@@ -1069,6 +1719,50 @@
     <wsdl:operation name="Ping">
       <wsdl:input message="tns:PingSoapIn" />
       <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEnvelopeFromTemplates">
+      <wsdl:input message="tns:CreateEnvelopeFromTemplatesSoapIn" />
+      <wsdl:output message="tns:CreateEnvelopeFromTemplatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusInDocuSignConnectFormat">
+      <wsdl:input message="tns:GetStatusInDocuSignConnectFormatSoapIn" />
+      <wsdl:output message="tns:GetStatusInDocuSignConnectFormatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PurgeDocuments">
+      <wsdl:input message="tns:PurgeDocumentsSoapIn" />
+      <wsdl:output message="tns:PurgeDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveTemplate">
+      <wsdl:input message="tns:SaveTemplateSoapIn" />
+      <wsdl:output message="tns:SaveTemplateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadTemplate">
+      <wsdl:input message="tns:UploadTemplateSoapIn" />
+      <wsdl:output message="tns:UploadTemplateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestTemplates">
+      <wsdl:input message="tns:RequestTemplatesSoapIn" />
+      <wsdl:output message="tns:RequestTemplatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestTemplate">
+      <wsdl:input message="tns:RequestTemplateSoapIn" />
+      <wsdl:output message="tns:RequestTemplateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationToken">
+      <wsdl:input message="tns:GetAuthenticationTokenSoapIn" />
+      <wsdl:output message="tns:GetAuthenticationTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressBookItems">
+      <wsdl:input message="tns:GetAddressBookItemsSoapIn" />
+      <wsdl:output message="tns:GetAddressBookItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAddressBookItems">
+      <wsdl:input message="tns:UpdateAddressBookItemsSoapIn" />
+      <wsdl:output message="tns:UpdateAddressBookItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAddressBookItems">
+      <wsdl:input message="tns:RemoveAddressBookItemsSoapIn" />
+      <wsdl:output message="tns:RemoveAddressBookItemsSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="APIServiceSoap" type="tns:APIServiceSoap">
@@ -1118,8 +1812,44 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RequestDocumentPDFsEx">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestDocumentPDFsEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestDocumentPDFsRecipientsView">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestDocumentPDFsRecipientsView" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestStatusEx">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestStatusEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RequestStatus">
       <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestStatusesEx">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestStatusesEx" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1138,6 +1868,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetRecipientEsignList">
       <soap:operation soapAction="http://www.docusign.net/API/3.0/GetRecipientEsignList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipientList">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/GetRecipientList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1181,6 +1920,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAccountSettingsList">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/GetAccountSettingsList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AcknowledgeAuthoritativeCopyExport">
       <soap:operation soapAction="http://www.docusign.net/API/3.0/AcknowledgeAuthoritativeCopyExport" style="document" />
       <wsdl:input>
@@ -1210,6 +1958,105 @@
     </wsdl:operation>
     <wsdl:operation name="Ping">
       <soap:operation soapAction="http://www.docusign.net/API/3.0/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEnvelopeFromTemplates">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/CreateEnvelopeFromTemplates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusInDocuSignConnectFormat">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/GetStatusInDocuSignConnectFormat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurgeDocuments">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/PurgeDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTemplate">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/SaveTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadTemplate">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/UploadTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestTemplates">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestTemplates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestTemplate">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RequestTemplate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationToken">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/GetAuthenticationToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressBookItems">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/GetAddressBookItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAddressBookItems">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/UpdateAddressBookItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAddressBookItems">
+      <soap:operation soapAction="http://www.docusign.net/API/3.0/RemoveAddressBookItems" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1265,8 +2112,44 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RequestDocumentPDFsEx">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestDocumentPDFsEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestDocumentPDFsRecipientsView">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestDocumentPDFsRecipientsView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestStatusEx">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestStatusEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RequestStatus">
       <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestStatusesEx">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestStatusesEx" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1285,6 +2168,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetRecipientEsignList">
       <soap12:operation soapAction="http://www.docusign.net/API/3.0/GetRecipientEsignList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecipientList">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/GetRecipientList" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1328,6 +2220,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAccountSettingsList">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/GetAccountSettingsList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AcknowledgeAuthoritativeCopyExport">
       <soap12:operation soapAction="http://www.docusign.net/API/3.0/AcknowledgeAuthoritativeCopyExport" style="document" />
       <wsdl:input>
@@ -1364,13 +2265,112 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateEnvelopeFromTemplates">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/CreateEnvelopeFromTemplates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusInDocuSignConnectFormat">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/GetStatusInDocuSignConnectFormat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PurgeDocuments">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/PurgeDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveTemplate">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/SaveTemplate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadTemplate">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/UploadTemplate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestTemplates">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestTemplates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestTemplate">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RequestTemplate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthenticationToken">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/GetAuthenticationToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressBookItems">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/GetAddressBookItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAddressBookItems">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/UpdateAddressBookItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveAddressBookItems">
+      <soap12:operation soapAction="http://www.docusign.net/API/3.0/RemoveAddressBookItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="APIService">
     <wsdl:port name="APIServiceSoap" binding="tns:APIServiceSoap">
-      <soap:address location="https://test.docusign.net/api/3.0/api.asmx" />
+      <soap:address location="https://preview.docusign.net/api/3.0/api.asmx" />
     </wsdl:port>
     <wsdl:port name="APIServiceSoap12" binding="tns:APIServiceSoap12">
-      <soap12:address location="https://test.docusign.net/api/3.0/api.asmx" />
+      <soap12:address location="https://preview.docusign.net/api/3.0/api.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
