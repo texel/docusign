@@ -20,7 +20,11 @@ module Docusign
       def login(options={})
         
         connection  = Docusign::APIServiceSoap.new
-        header      = AuthHeaderHandler.new(options.delete(:user_name), options.delete(:password))
+        header = AuthHeaderHandler.new(
+          :user_name => options.delete(:user_name), 
+          :password  => options.delete(:password),
+          :api_key   => options.delete(:api_key)
+        )
         
         connection.headerhandler << header
         
