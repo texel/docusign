@@ -23,7 +23,6 @@ module Docusign
         header = AuthHeaderHandler.new(
           :user_name => options.delete(:user_name), 
           :password  => options.delete(:password),
-          :api_key   => options.delete(:api_key)
         )
         
         connection.headerhandler << header

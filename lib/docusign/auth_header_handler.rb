@@ -28,7 +28,7 @@ module Docusign
     end
 
     def on_simple_outbound
-      if attributes[:user_name] && options[:password]
+      if attributes[:user_name] && attributes[:password]
         {"UsernameToken" => {"Username" => attributes[:user_name], "Password" => attributes[:password]}}
       end
     end
