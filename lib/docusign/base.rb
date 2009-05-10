@@ -22,7 +22,7 @@ module Docusign
         connection  = Docusign::APIServiceSoap.new
         header = AuthHeaderHandler.new(
           :user_name => options.delete(:user_name), 
-          :password  => options.delete(:password),
+          :password  => options.delete(:password)
         )
         
         connection.headerhandler << header
