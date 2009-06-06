@@ -24,6 +24,11 @@ namespace :docusign do
       wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/DocuSign3.0.10API.wsdl")
       wsdl2ruby('docusign', 'Docusign', "file://#{wsdl_path}")
     end
+    
+    task :generate_credential_api do
+      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/Credential.wsdl")
+      wsdl2ruby('docusign_credential', 'Docusign::Credential', "file://#{wsdl_path}")
+    end
   end
 end
 

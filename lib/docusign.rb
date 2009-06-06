@@ -21,5 +21,8 @@ require 'docusign/docusignMappingRegistry'
 require 'docusign/docusignDriver'
 require 'docusign/base'
 require 'docusign/auth_header_handler'
+require 'docusign/credential'
+require 'docusign/credentialDriver'
+require 'docusign/credentialMappingRegistry'
  
 Docusign::VERSION = '0.2'
