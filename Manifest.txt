@@ -11,5 +11,8 @@ lib/docusign/base.rb
 lib/docusign/docusign.rb
 lib/docusign/docusignDriver.rb
 lib/docusign/docusignMappingRegistry.rb
+lib/docusign/credential.rb
+lib/docusign/credentialDriver.rb
+lib/docusign/credentialMappingRegistry.rb
 tasks/docusign_tasks.rake
 test/test_docusign.rb

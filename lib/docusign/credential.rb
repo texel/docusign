@@ -90,6 +90,10 @@ class LoginResponse
       @authenticationMessage = authenticationMessage
       @accounts = accounts
     end
+    
+    def success?
+      @success
+    end
   end
 
   attr_accessor :loginResult

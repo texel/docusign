@@ -17,7 +17,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{docusign}
-  s.version = "0.2.32"
+  s.version = "0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Leigh Caplan"]
@@ -27,7 +27,25 @@ Gem::Specification.new do |s|
   s.email = ["texel1@gmail.com"]
   s.executables = ["docusign"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
-  s.files = ["History.txt", "Manifest.txt", "README.txt", "Rakefile", "bin/docusign", "docusign.gemspec", "lib/DocuSign3.0.10API.wsdl", "lib/docusign.rb", "lib/docusign/auth_header_handler.rb", "lib/docusign/base.rb", "lib/docusign/docusign.rb", "lib/docusign/docusignDriver.rb", "lib/docusign/docusignMappingRegistry.rb", "tasks/docusign_tasks.rake", "test/test_docusign.rb"]
+  s.files = [
+    "History.txt", 
+    "Manifest.txt", 
+    "README.txt", 
+    "Rakefile", 
+    "bin/docusign", 
+    "docusign.gemspec", 
+    "lib/DocuSign3.0.10API.wsdl", 
+    "lib/docusign.rb", 
+    "lib/docusign/auth_header_handler.rb", 
+    "lib/docusign/base.rb", 
+    "lib/docusign/docusign.rb", 
+    "lib/docusign/docusignDriver.rb", 
+    "lib/docusign/docusignMappingRegistry.rb",
+    "lib/docusign/credential.rb",
+    "lib/docusign/credentialDriver.rb",
+    "lib/docusign/credentialMappingRegistry.rb",
+    "tasks/docusign_tasks.rake", 
+    "test/test_docusign.rb"]
   s.has_rdoc = true
   s.homepage = %q{http://www.docusign.com}
   s.rdoc_options = ["--main", "README.txt"]

@@ -1,4 +1,3 @@
-require 'credential.rb'
 require 'soap/mapping'
 
 module Docusign; module Credential
