@@ -21,6 +21,10 @@ connection.requestStatus :envelopeID => '12345'
 1) $ gem sources -a http://gems.github.com (you only have to do this once)
 2) $ sudo gem install texel-docusign
 
+== TO DOCUMENT:
+- AutoCamelize
+- Tab/Anchor Builders
+
 == LICENSE:
 
 Copyright (C) DocuSign, Inc.  All rights reserved.

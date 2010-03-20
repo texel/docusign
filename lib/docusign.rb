@@ -17,6 +17,9 @@ $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
  
 gem 'soap4r'
 require 'active_support'
+
+require 'docusign/utilities'
+
 require 'docusign/docusign'
 require 'docusign/docusignMappingRegistry'
 require 'docusign/docusignDriver'
@@ -26,6 +29,9 @@ require 'docusign/credential'
 require 'docusign/credentialDriver'
 require 'docusign/credentialMappingRegistry'
 require 'docusign/document'
-require 'docusign/builder/tab_builder'
 
-Docusign::VERSION = '0.2'
+require 'docusign/builder/base'
+require 'docusign/builder/tab_builder'
+require 'docusign/builder/anchor_builder'
+
+require 'docusign/extensions'

@@ -1,9 +1,15 @@
 require 'spec/spec_helper'
 
 describe Docusign::Builder::TabBuilder do
+  def init_tab_builder
+    @document = stub(:id => 1)
+    @recipient = stub(:id => 1)
+    @tb = Docusign::Builder::TabBuilder.new @document, @recipient
+  end
+  
   describe "#initialize" do
     before(:each) do
-      @tb = Docusign::Builder::TabBuilder.new 'document', 'recipient'
+      init_tab_builder
     end
     
     it "should return an instance of itself" do
@@ -11,17 +17,17 @@ describe Docusign::Builder::TabBuilder do
     end
     
     it "should set the document" do
-      @tb.document.should == 'document'
+      @tb.document.should == @document
     end
     
     it "should set the recipient if passed in" do
-      @tb.recipient.should == 'recipient'
+      @tb.recipient.should == @recipient
     end
   end
   
   describe "#build" do
     before(:each) do
-      @tb = Docusign::Builder::TabBuilder.new 'document', 'recipient'
+      init_tab_builder
     end
     
     it "should return a new tab with no arguments" do
@@ -37,23 +43,32 @@ describe Docusign::Builder::TabBuilder do
     
     it "should set attributes via block" do
       tab = @tb.build do |t|
-        t.name  'foo'
-        t.value 'bar'
+        t.name  = 'foo'
+        t.value = 'bar'
       end
       
       tab.name.should == 'foo'
       tab.value.should == 'bar'
     end
-  end
-  
-  Docusign::Builder::TabBuilder::ATTRIBUTES.each do |attribute|
-    it "should set the tab's #{attribute}" do
-      @tb = Docusign::Builder::TabBuilder.new 'document'
+    
+    it "should set the document and recipient" do
+      tab = @tb.build
+      tab.document_id.should == @document.id
+      tab.recipient_id.should == @recipient.id
+    end
+    
+    context "overriding document and recipient" do
+      before(:each) do
+        @tab = @tb.build :document_id => 3, :recipient_id => 2
+      end
       
-      @tb.tab = Docusign::Tab.new
-      @tb.send(attribute.underscore, 'value')
-      @tb.tab.send(attribute).should == 'value'
+      it "should not set a default document" do
+        @tab.document_id.should == 3
+      end
+      
+      it "should not set a default recipient" do
+        @tab.recipient_id.should == 2
+      end
     end
   end
-
 end
