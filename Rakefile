@@ -1,15 +1,40 @@
-# -*- ruby -*-
+# Copyright (C) DocuSign, Inc.  All rights reserved.
+# 
+# This source code is intended only as a supplement to DocuSign SDK 
+# and/or on-line documentation.
+# 
+# This sample is designed to demonstrate DocuSign features and is not intended 
+# for production use. Code and policy for a production application must be 
+# developed to meet the specific data and security requirements of the 
+# application.
+# 
+# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+# KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+# PARTICULAR PURPOSE.
 
 require 'rubygems'
-require 'hoe'
 require './lib/docusign.rb'
 
 gem 'soap4r'
 require 'wsdl/soap/wsdl2ruby'
 
-Hoe.new('docusign', Docusign::VERSION) do |p|
-  p.rubyforge_name = 'docusign' # if different than lowercase project name
-  p.developer('Leigh Caplan', 'texel1@gmail.com')
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "docusign"
+    gemspec.summary = "A library for working with the Docusign API and associated objects"
+    gemspec.description = <<-HERE
+A library for working with the Docusign API and associated objects.
+Provides SOAP4R-generated proxy classes, and extends many useful classes
+with familiar Ruby-like syntax.    
+HERE
+    gemspec.email = "texel1@gmail.com"
+    gemspec.homepage = "http://github.com/texel/docusign"
+    gemspec.authors = ["Leigh Caplan"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: gem install jeweler"
 end
 
 task :cultivate do
