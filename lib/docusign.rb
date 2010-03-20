@@ -28,7 +28,10 @@ require 'docusign/auth_header_handler'
 require 'docusign/credential'
 require 'docusign/credentialDriver'
 require 'docusign/credentialMappingRegistry'
+
 require 'docusign/document'
+require 'docusign/tab'
+require 'docusign/anchor_tab'
 
 require 'docusign/builder/base'
 require 'docusign/builder/tab_builder'

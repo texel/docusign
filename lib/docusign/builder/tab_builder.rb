@@ -7,15 +7,18 @@ module Docusign
       
       self.builder_class = Docusign::Tab
 
-      def initialize(document, recipient = nil)
+      def initialize(document = nil, recipient = nil)
         super
         self.document, self.recipient = document, recipient
       end
 
       def build(options = {}, &block)
+        anchor_options = options.delete(:anchor)
+        
         returning super(options, &block) do |tab|
-          tab.document_id  ||= document.id
-          tab.recipient_id ||= recipient.id
+          tab.anchor anchor_options if anchor_options && !tab.anchor_tab_item
+          tab.document_id  ||= document.id  if document
+          tab.recipient_id ||= recipient.id if recipient
         end
       end
     end
