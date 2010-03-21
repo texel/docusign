@@ -37,5 +37,16 @@ Docusign.constants.each do |c|
   if constant.is_a? Class
     constant.send :include, AutoCamelize
     constant.extend AutoCamelize
+    
+    # Map iD to id, to avoid confusion
+    constant.class_eval do
+      def id
+        if respond_to?(:iD)
+          iD
+        else
+          super
+        end
+      end
+    end
   end
 end
