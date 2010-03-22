@@ -19,6 +19,9 @@ module Docusign
           tab.anchor anchor_options if anchor_options && !tab.anchor_tab_item
           tab.document_id  ||= document.id  if document
           tab.recipient_id ||= recipient.id if recipient
+          
+          # Provide a custom tab type if none has already been provided
+          tab.type ||= Docusign::TabTypeCode::Custom
         end
       end
     end
