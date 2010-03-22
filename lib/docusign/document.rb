@@ -8,7 +8,7 @@ module Docusign
     def tabs(recipient = nil, &block)      
       @tabs ||= Docusign::ArrayOfTab.new
       
-      return @tabs unless recipient || block_given?
+      return @tabs unless block_given?
       
       self.tab_builder = Docusign::Builder::TabBuilder.new(self, recipient)
       

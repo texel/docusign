@@ -13,7 +13,9 @@ module AutoCamelize
 
     if ds_name && respond_to?(ds_name)
       self.class.class_eval %Q{
-        alias :#{method_name} :#{ds_name}
+        def #{method_name}(*args, &block)
+          send "#{ds_name}", *args, &block
+        end
       }
 
       send method_name, *args, &block
