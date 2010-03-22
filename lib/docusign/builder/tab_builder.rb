@@ -20,6 +20,9 @@ module Docusign
           tab.document_id  ||= document.id  if document
           tab.recipient_id ||= recipient.id if recipient
           
+          # Default tab_label to the tab name if none is explicitly given
+          tab.tab_label ||= tab.name
+          
           # Provide a custom tab type if none has already been provided
           tab.type ||= Docusign::TabTypeCode::Custom
         end
