@@ -32,6 +32,7 @@ require 'docusign/credentialMappingRegistry'
 require 'docusign/document'
 require 'docusign/tab'
 require 'docusign/anchor_tab'
+require 'docusign/request_recipient_token_client_urls'
 
 require 'docusign/builder/base'
 require 'docusign/builder/tab_builder'
