@@ -1,5 +1,9 @@
 module Docusign
   class Tab
+    alias_attribute :page, :page_number
+    alias_attribute :x, :x_position
+    alias_attribute :y, :y_position
+    
     def anchor(options = {}, &block)
       returning anchor_builder.build(options, &block) do |a|
         yield a if block_given?
