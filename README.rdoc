@@ -36,22 +36,22 @@ equivalent, if one exists. Hence, the following two examples are functionally id
 To ease common tasks, some builder methods are included. For example, you can generate tabs for a
 document for a particular recipient from the document itself:
 
-  signer   = Docusign::Recipient.new # You may want to set some attributes of the recipient as well.
-  document = Docusign::Document.new
+  recipient = Docusign::Recipient.new # You may want to set some attributes of the recipient as well.
+  document  = Docusign::Document.new
 
-  tabs = document.tabs signer do |d|
+  tabs = document.tabs recipient do |d|
     d.tab :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
     d.tab :name => 'phone', :value => phone, :anchor => {:string => 'Phone:',  :x_offset => 200, :y_offset => -2}
     d.tab :type => Docusign::TabTypeCode::FullName, :page => 1, :x => 190, :y => 118
   end
   
-These tabs will be pre-populated with both the document's and signer's id.
-Note that passing in a signer to the builder is optional- you can still specify or override the signer
+These tabs will be pre-populated with both the document's and recipient's id.
+Note that passing in a recipient to the builder is optional- you can still specify or override the recipient
 for an individual tab:
 
   tabs = document.tabs do |d|
-    d.tab :signer => signer_1, :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
-    d.tab :signer => signer_2, :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
+    d.tab :recipient => signer_1, :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
+    d.tab :recipient => signer_2, :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
   end
   
 You can also use block syntax for the tabs themselves:
