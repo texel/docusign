@@ -28,7 +28,7 @@ The Docusign gem supports calling methods using both camelCase and snake_case. M
 that don't exist on a Docusign module class or instance are automatically aliased to their camelCase
 equivalent, if one exists. Hence, the following two examples are functionally identical:
 
-  connection.request_status :envelope_id => '12345'
+  connection.request_status :envelopeID => '12345'
   connection.requestStatus :envelopeID => '12345'
 
 == Builder syntax
