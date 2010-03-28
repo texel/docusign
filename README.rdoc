@@ -9,13 +9,13 @@ A library for communicating with the Docusign API via SOAP.
 
 == SYNOPSIS:
 
-connection = Docusign::Base.login(
-  :user_name    => 'your_user_name',
-  :password     => 'your_password',
-  :endpoint_url => 'http://demo.docusign.net/API/3.0'
-)
+  connection = Docusign::Base.login(
+    :user_name    => 'your_user_name',
+    :password     => 'your_password',
+    :endpoint_url => 'http://demo.docusign.net/API/3.0'
+  )
 
-connection.request_status :envelope_id => '12345'
+  connection.request_status :envelope_id => '12345'
 
 == INSTALL:
 
@@ -36,26 +36,26 @@ connection.requestStatus :envelopeID => '12345'
 To ease common tasks, some builder methods are included. For example, you can generate tabs for a
 document for a particular recipient from the document itself:
 
-signer   = Docusign::Recipient.new # You may want to set some attributes of the recipient as well.
-document = Docusign::Document.new
+  signer   = Docusign::Recipient.new # You may want to set some attributes of the recipient as well.
+  document = Docusign::Document.new
 
-tabs = document.tabs signer do |d|
-  d.tab :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
-  d.tab :name => 'phone', :value => phone, :anchor => {:string => 'Phone:',  :x_offset => 200, :y_offset => -2}
-  d.tab :type => Docusign::TabTypeCode::FullName, :page => 1, :x => 190, :y => 118
-end
+  tabs = document.tabs signer do |d|
+    d.tab :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
+    d.tab :name => 'phone', :value => phone, :anchor => {:string => 'Phone:',  :x_offset => 200, :y_offset => -2}
+    d.tab :type => Docusign::TabTypeCode::FullName, :page => 1, :x => 190, :y => 118
+  end
 
 You can also use block syntax for the tabs themselves:
 
-tabs = document.tabs signer do |d|
-  d.tab do |t|
-    t.name = 'phone'
-    t.anchor do |a|
-      a.string = 'Phone'
-      a.x_offset = 200
+  tabs = document.tabs signer do |d|
+    d.tab do |t|
+      t.name = 'phone'
+      t.anchor do |a|
+        a.string = 'Phone'
+        a.x_offset = 200
+      end
     end
   end
-end
 
 == LICENSE:
 
