@@ -44,7 +44,16 @@ document for a particular recipient from the document itself:
     d.tab :name => 'phone', :value => phone, :anchor => {:string => 'Phone:',  :x_offset => 200, :y_offset => -2}
     d.tab :type => Docusign::TabTypeCode::FullName, :page => 1, :x => 190, :y => 118
   end
+  
+These tabs will be pre-populated with both the document's and signer's id.
+Note that passing in a signer to the builder is optional- you can still specify or override the signer
+for an individual tab:
 
+  tabs = document.tabs do |d|
+    d.tab :signer => signer_1, :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
+    d.tab :signer => signer_2, :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
+  end
+  
 You can also use block syntax for the tabs themselves:
 
   tabs = document.tabs signer do |d|
