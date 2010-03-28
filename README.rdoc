@@ -19,8 +19,8 @@ A library for communicating with the Docusign API via SOAP.
 
 == Install
 
-1) $ gem update --system (this is only necessary if you don't have rubygems 1.3.6 or newer)
-2) $ gem install docusign
+1. $ gem update --system (this is only necessary if you don't have rubygems 1.3.6 or newer)
+2. $ gem install docusign
 
 == AutoCamelize
 
