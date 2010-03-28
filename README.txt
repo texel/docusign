@@ -15,15 +15,47 @@ connection = Docusign::Base.login(
   :endpoint_url => 'http://demo.docusign.net/API/3.0'
 )
 
-connection.requestStatus :envelopeID => '12345'
+connection.request_status :envelope_id => '12345'
 
 == INSTALL:
-1) $ gem sources -a http://gems.github.com (you only have to do this once)
-2) $ sudo gem install texel-docusign
 
-== TO DOCUMENT:
-- AutoCamelize
-- Tab/Anchor Builders
+1) $ gem update --system (this is only necessary if you don't have rubygems 1.3.6 or newer)
+2) $ gem install docusign
+
+== AutoCamelize
+
+The Docusign gem supports calling methods using both camelCase and snake_case. Methods in snake_case
+that don't exist on a Docusign module class or instance are automatically aliased to their camelCase
+equivalent, if one exists. Hence, the following two examples are functionally identical:
+
+connection.request_status :envelope_id => '12345'
+connection.requestStatus :envelopeID => '12345'
+
+== Builder syntax
+
+To ease common tasks, some builder methods are included. For example, you can generate tabs for a
+document for a particular recipient from the document itself:
+
+signer   = Docusign::Recipient.new # You may want to set some attributes of the recipient as well.
+document = Docusign::Document.new
+
+tabs = document.tabs signer do |d|
+  d.tab :name => 'email', :value => email, :page => 1, :x => 190, :y => 186
+  d.tab :name => 'phone', :value => phone, :anchor => {:string => 'Phone:',  :x_offset => 200, :y_offset => -2}
+  d.tab :type => Docusign::TabTypeCode::FullName, :page => 1, :x => 190, :y => 118
+end
+
+You can also use block syntax for the tabs themselves:
+
+tabs = document.tabs signer do |d|
+  d.tab do |t|
+    t.name = 'phone'
+    t.anchor do |a|
+      a.string = 'Phone'
+      a.x_offset = 200
+    end
+  end
+end
 
 == LICENSE:
 

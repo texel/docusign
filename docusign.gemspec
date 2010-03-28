@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{docusign}
-  s.version = "0.5.3"
+  s.version = "0.5.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Leigh Caplan"]
-  s.date = %q{2010-03-24}
+  s.date = %q{2010-03-27}
   s.default_executable = %q{docusign}
   s.description = %q{A library for working with the Docusign API and associated objects.
 Provides SOAP4R-generated proxy classes, and extends many useful classes
