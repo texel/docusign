@@ -3,11 +3,11 @@
 http://www.docusign.com
 http://www.github.com/texel/docusign
 
-== DESCRIPTION:
+== Description
 
 A library for communicating with the Docusign API via SOAP.
 
-== SYNOPSIS:
+== Making An API Call
 
   connection = Docusign::Base.login(
     :user_name    => 'your_user_name',
@@ -17,7 +17,7 @@ A library for communicating with the Docusign API via SOAP.
 
   connection.request_status :envelope_id => '12345'
 
-== INSTALL:
+== Install
 
 1) $ gem update --system (this is only necessary if you don't have rubygems 1.3.6 or newer)
 2) $ gem install docusign
@@ -57,7 +57,7 @@ You can also use block syntax for the tabs themselves:
     end
   end
 
-== LICENSE:
+== License
 
 Copyright (C) DocuSign, Inc.  All rights reserved.
 
