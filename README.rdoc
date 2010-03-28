@@ -56,7 +56,7 @@ for an individual tab:
   
 You can also use block syntax for the tabs themselves:
 
-  tabs = document.tabs signer do |d|
+  tabs = document.tabs recipient do |d|
     d.tab do |t|
       t.name = 'phone'
       t.anchor do |a|
