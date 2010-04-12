@@ -6,6 +6,24 @@
 # is found, we alias the snake_case method on the
 # class, to avoid tripping method_missing for the same
 # method in the future.
+module ConstEnhancements
+  def const_descendants
+    constants.reject { |c| c == 'Enumerator' }.inject([]) do |collection, constant|
+      c = const_get(constant)
+      collection << c
+      
+      if [Module, Class].include?(c.class)
+        collection + c.const_descendants
+      else
+        collection
+      end
+    end
+  end
+end
+
+[Module, Class].each do |i|
+  i.send :include, ConstEnhancements
+end
 
 module AutoCamelize
   def method_missing(method_name, *args, &block)
@@ -34,8 +52,12 @@ module AutoCamelize
   end
 end
 
-Docusign.constants.each do |c|
-  constant = Docusign.const_get c 
+constants = Docusign.constants
+
+# Recursively collect nested credential constants
+constants = constants.map { |c| Docusign.const_get(c) } + Docusign::Credential.const_descendants
+
+constants.each do |constant|
   if constant.is_a? Class
     constant.send :include, AutoCamelize
     constant.extend AutoCamelize
