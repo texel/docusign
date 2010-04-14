@@ -22,9 +22,10 @@ module Docusign
         connection  = Docusign::APIServiceSoap.new
         
         if options[:integrators_key]
-          header = AuthHeaderHandler.new(
-            :email          => options.delete(:email),
-            :integrators_key => options.delete(:integrators_key)
+          header = IntegratorsKeyAuthHeaderHandler.new(
+            :email           => options.delete(:email),
+            :integrators_key => options.delete(:integrators_key),
+            :password        => options.delete(:password)
           )
         else
           header = AuthHeaderHandler.new(

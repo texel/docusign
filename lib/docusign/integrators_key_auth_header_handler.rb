@@ -29,7 +29,12 @@ module Docusign
 
     def on_simple_outbound
       if attributes[:integrators_key] && attributes[:email]
-        {"UsernameToken" => {"Username" => "[#{attributes[:integrators_key]}]#{attributes[:email]}"}}
+        {
+          'UsernameToken' => {
+            'Username' => "[#{attributes[:integrators_key]}]#{attributes[:email]}", 
+            'Password' => attributes[:password]
+          }
+        }
       end
     end
   end

@@ -45,7 +45,7 @@ with familiar Ruby-like syntax.
      "lib/docusign/docusignDriver.rb",
      "lib/docusign/docusignMappingRegistry.rb",
      "lib/docusign/extensions.rb",
-     "lib/docusign/integrator_key_auth_header_handler.rb",
+     "lib/docusign/integrators_key_auth_header_handler.rb",
      "lib/docusign/request_recipient_token_client_urls.rb",
      "lib/docusign/tab.rb",
      "lib/docusign/utilities.rb",
