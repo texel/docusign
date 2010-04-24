@@ -1,3 +1,5 @@
+require 'docusign/credential.rb'
+require 'docusign/credentialMappingRegistry.rb'
 require 'soap/rpc/driver'
 
 module Docusign::Credential
@@ -26,6 +28,14 @@ class CredentialSoap < ::SOAP::RPC::Driver
       "getAuthenticationToken",
       [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/Credential", "GetAuthenticationToken"]],
         ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/Credential", "GetAuthenticationTokenResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/Credential/RequestSenderToken",
+      "requestSenderToken",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/Credential", "RequestSenderToken"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/Credential", "RequestSenderTokenResponse"]] ],
       { :request_style =>  :document, :request_use =>  :literal,
         :response_style => :document, :response_use => :literal,
         :faults => {} }

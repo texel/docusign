@@ -90,10 +90,6 @@ class LoginResponse
       @authenticationMessage = authenticationMessage
       @accounts = accounts
     end
-    
-    def success?
-      @success
-    end
   end
 
   attr_accessor :loginResult
@@ -129,6 +125,38 @@ class GetAuthenticationTokenResponse
 
   def initialize(getAuthenticationTokenResult = nil)
     @getAuthenticationTokenResult = getAuthenticationTokenResult
+  end
+end
+
+# {http://www.docusign.net/API/Credential}RequestSenderToken
+#   email - SOAP::SOAPString
+#   password - SOAP::SOAPString
+#   accountID - SOAP::SOAPString
+#   envelopeID - SOAP::SOAPString
+#   returnURL - SOAP::SOAPString
+class RequestSenderToken
+  attr_accessor :email
+  attr_accessor :password
+  attr_accessor :accountID
+  attr_accessor :envelopeID
+  attr_accessor :returnURL
+
+  def initialize(email = nil, password = nil, accountID = nil, envelopeID = nil, returnURL = nil)
+    @email = email
+    @password = password
+    @accountID = accountID
+    @envelopeID = envelopeID
+    @returnURL = returnURL
+  end
+end
+
+# {http://www.docusign.net/API/Credential}RequestSenderTokenResponse
+#   requestSenderTokenResult - SOAP::SOAPString
+class RequestSenderTokenResponse
+  attr_accessor :requestSenderTokenResult
+
+  def initialize(requestSenderTokenResult = nil)
+    @requestSenderTokenResult = requestSenderTokenResult
   end
 end
 

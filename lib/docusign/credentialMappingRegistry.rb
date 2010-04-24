@@ -1,3 +1,4 @@
+require 'docusign/credential.rb'
 require 'soap/mapping'
 
 module Docusign; module Credential
@@ -121,6 +122,26 @@ module DefaultMappingRegistry
     :schema_name => XSD::QName.new(NsCredential, "GetAuthenticationTokenResponse"),
     :schema_element => [
       ["getAuthenticationTokenResult", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "GetAuthenticationTokenResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::Credential::RequestSenderToken,
+    :schema_name => XSD::QName.new(NsCredential, "RequestSenderToken"),
+    :schema_element => [
+      ["email", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "Email")], [0, 1]],
+      ["password", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "Password")], [0, 1]],
+      ["accountID", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "AccountID")], [0, 1]],
+      ["envelopeID", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "EnvelopeID")], [0, 1]],
+      ["returnURL", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "ReturnURL")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::Credential::RequestSenderTokenResponse,
+    :schema_name => XSD::QName.new(NsCredential, "RequestSenderTokenResponse"),
+    :schema_element => [
+      ["requestSenderTokenResult", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "RequestSenderTokenResult")], [0, 1]]
     ]
   )
 end
