@@ -65,7 +65,6 @@ module AutoQuery
       
       send method_name, *args, &block
     else
-      puts "calling super"
       super
     end
   end
