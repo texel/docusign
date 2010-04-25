@@ -52,6 +52,25 @@ module AutoCamelize
   end
 end
 
+module AutoQuery
+  def method_missing(method_name, *args, &block)
+    string_name = method_name.to_s
+    
+    if (string_name =~ /\?$/) && respond_to?(string_name.gsub(/\?/, ''))
+      self.class.class_eval %Q{
+        def #{string_name}(*args, &block)
+          !! (send "#{string_name.gsub(/\?/, '')}", *args, &block)
+        end
+      }
+      
+      send method_name, *args, &block
+    else
+      puts "calling super"
+      super
+    end
+  end
+end
+
 constants = Docusign.constants
 
 # Recursively collect nested credential constants
@@ -60,7 +79,9 @@ constants = constants.map { |c| Docusign.const_get(c) } + Docusign::Credential.c
 constants.each do |constant|
   if constant.is_a? Class
     constant.send :include, AutoCamelize
+    constant.send :include, AutoQuery
     constant.extend AutoCamelize
+    constant.extend AutoQuery
     
     # Map iD to id, to avoid confusion
     constant.class_eval do
