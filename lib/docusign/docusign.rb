@@ -1,24 +1,11 @@
-# Copyright (C) DocuSign, Inc.  All rights reserved.
-# 
-# This source code is intended only as a supplement to DocuSign SDK 
-# and/or on-line documentation.
-# 
-# This sample is designed to demonstrate DocuSign features and is not intended 
-# for production use. Code and policy for a production application must be 
-# developed to meet the specific data and security requirements of the 
-# application.
-# 
-# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-# KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-# PARTICULAR PURPOSE.
-
 require 'xsd/qname'
 
 module Docusign
 
 
 # {http://www.docusign.net/API/3.0}Envelope
+#   transactionID - SOAP::SOAPString
+#   asynchronous - SOAP::SOAPBoolean
 #   accountId - SOAP::SOAPString
 #   documents - Docusign::ArrayOfDocument
 #   recipients - Docusign::ArrayOfRecipient
@@ -34,7 +21,11 @@ module Docusign
 #   notification - Docusign::Notification
 #   envelopeAttachment - Docusign::ArrayOfAttachment
 #   enforceSignerVisibility - SOAP::SOAPBoolean
+#   enableWetSign - SOAP::SOAPBoolean
+#   allowMarkup - SOAP::SOAPBoolean
 class Envelope
+  attr_accessor :transactionID
+  attr_accessor :asynchronous
   attr_accessor :accountId
   attr_accessor :documents
   attr_accessor :recipients
@@ -50,8 +41,12 @@ class Envelope
   attr_accessor :notification
   attr_accessor :envelopeAttachment
   attr_accessor :enforceSignerVisibility
+  attr_accessor :enableWetSign
+  attr_accessor :allowMarkup
 
-  def initialize(accountId = nil, documents = nil, recipients = nil, tabs = nil, subject = nil, emailBlurb = nil, signingLocation = nil, customFields = nil, vaultingOptions = nil, autoNavigation = nil, envelopeIdStamping = nil, authoritativeCopy = nil, notification = nil, envelopeAttachment = nil, enforceSignerVisibility = nil)
+  def initialize(transactionID = nil, asynchronous = nil, accountId = nil, documents = nil, recipients = nil, tabs = nil, subject = nil, emailBlurb = nil, signingLocation = nil, customFields = nil, vaultingOptions = nil, autoNavigation = nil, envelopeIdStamping = nil, authoritativeCopy = nil, notification = nil, envelopeAttachment = nil, enforceSignerVisibility = nil, enableWetSign = nil, allowMarkup = nil)
+    @transactionID = transactionID
+    @asynchronous = asynchronous
     @accountId = accountId
     @documents = documents
     @recipients = recipients
@@ -67,6 +62,8 @@ class Envelope
     @notification = notification
     @envelopeAttachment = envelopeAttachment
     @enforceSignerVisibility = enforceSignerVisibility
+    @enableWetSign = enableWetSign
+    @allowMarkup = allowMarkup
   end
 end
 
@@ -82,6 +79,7 @@ end
 #   transformPdfFields - SOAP::SOAPBoolean
 #   fileExtension - SOAP::SOAPString
 #   matchBoxes - Docusign::ArrayOfMatchBox
+#   attachmentDescription - SOAP::SOAPString
 class Document
   attr_accessor :iD
   attr_accessor :name
@@ -90,8 +88,9 @@ class Document
   attr_accessor :transformPdfFields
   attr_accessor :fileExtension
   attr_accessor :matchBoxes
+  attr_accessor :attachmentDescription
 
-  def initialize(iD = nil, name = nil, pDFBytes = nil, password = nil, transformPdfFields = nil, fileExtension = nil, matchBoxes = nil)
+  def initialize(iD = nil, name = nil, pDFBytes = nil, password = nil, transformPdfFields = nil, fileExtension = nil, matchBoxes = nil, attachmentDescription = nil)
     @iD = iD
     @name = name
     @pDFBytes = pDFBytes
@@ -99,6 +98,7 @@ class Document
     @transformPdfFields = transformPdfFields
     @fileExtension = fileExtension
     @matchBoxes = matchBoxes
+    @attachmentDescription = attachmentDescription
   end
 end
 
@@ -142,9 +142,10 @@ end
 #   addAccessCodeToEmail - SOAP::SOAPBoolean
 #   requireIDLookup - SOAP::SOAPBoolean
 #   iDCheckConfigurationName - SOAP::SOAPString
+#   phoneAuthentication - Docusign::RecipientPhoneAuthentication
 #   signatureInfo - Docusign::RecipientSignatureInfo
 #   captiveInfo - Docusign::RecipientCaptiveInfo
-#   customFields - Docusign::ArrayOfString
+#   customFields - Docusign::ArrayOfString1
 #   routingOrder - SOAP::SOAPUnsignedShort
 #   iDCheckInformationInput - Docusign::IDCheckInformationInput
 #   autoNavigation - SOAP::SOAPBoolean
@@ -153,6 +154,7 @@ end
 #   roleName - SOAP::SOAPString
 #   templateLocked - SOAP::SOAPBoolean
 #   templateRequired - SOAP::SOAPBoolean
+#   templateAccessCodeRequired - SOAP::SOAPBoolean
 class Recipient
   attr_accessor :iD
   attr_accessor :userName
@@ -163,6 +165,7 @@ class Recipient
   attr_accessor :addAccessCodeToEmail
   attr_accessor :requireIDLookup
   attr_accessor :iDCheckConfigurationName
+  attr_accessor :phoneAuthentication
   attr_accessor :signatureInfo
   attr_accessor :captiveInfo
   attr_accessor :customFields
@@ -174,8 +177,9 @@ class Recipient
   attr_accessor :roleName
   attr_accessor :templateLocked
   attr_accessor :templateRequired
+  attr_accessor :templateAccessCodeRequired
 
-  def initialize(iD = nil, userName = nil, signerName = nil, email = nil, type = nil, accessCode = nil, addAccessCodeToEmail = nil, requireIDLookup = nil, iDCheckConfigurationName = nil, signatureInfo = nil, captiveInfo = nil, customFields = nil, routingOrder = nil, iDCheckInformationInput = nil, autoNavigation = nil, recipientAttachment = nil, note = nil, roleName = nil, templateLocked = nil, templateRequired = nil)
+  def initialize(iD = nil, userName = nil, signerName = nil, email = nil, type = nil, accessCode = nil, addAccessCodeToEmail = nil, requireIDLookup = nil, iDCheckConfigurationName = nil, phoneAuthentication = nil, signatureInfo = nil, captiveInfo = nil, customFields = nil, routingOrder = nil, iDCheckInformationInput = nil, autoNavigation = nil, recipientAttachment = nil, note = nil, roleName = nil, templateLocked = nil, templateRequired = nil, templateAccessCodeRequired = nil)
     @iD = iD
     @userName = userName
     @signerName = signerName
@@ -185,6 +189,7 @@ class Recipient
     @addAccessCodeToEmail = addAccessCodeToEmail
     @requireIDLookup = requireIDLookup
     @iDCheckConfigurationName = iDCheckConfigurationName
+    @phoneAuthentication = phoneAuthentication
     @signatureInfo = signatureInfo
     @captiveInfo = captiveInfo
     @customFields = customFields
@@ -196,7 +201,31 @@ class Recipient
     @roleName = roleName
     @templateLocked = templateLocked
     @templateRequired = templateRequired
+    @templateAccessCodeRequired = templateAccessCodeRequired
   end
+end
+
+# {http://www.docusign.net/API/3.0}RecipientPhoneAuthentication
+#   recipMayProvideNumber - SOAP::SOAPBoolean
+#   validateRecipProvidedNumber - SOAP::SOAPBoolean
+#   recordVoicePrint - SOAP::SOAPBoolean
+#   senderProvidedNumbers - Docusign::ArrayOfString
+class RecipientPhoneAuthentication
+  attr_accessor :recipMayProvideNumber
+  attr_accessor :validateRecipProvidedNumber
+  attr_accessor :recordVoicePrint
+  attr_accessor :senderProvidedNumbers
+
+  def initialize(recipMayProvideNumber = nil, validateRecipProvidedNumber = nil, recordVoicePrint = nil, senderProvidedNumbers = nil)
+    @recipMayProvideNumber = recipMayProvideNumber
+    @validateRecipProvidedNumber = validateRecipProvidedNumber
+    @recordVoicePrint = recordVoicePrint
+    @senderProvidedNumbers = senderProvidedNumbers
+  end
+end
+
+# {http://www.docusign.net/API/3.0}ArrayOfString
+class ArrayOfString < ::Array
 end
 
 # {http://www.docusign.net/API/3.0}RecipientSignatureInfo
@@ -225,8 +254,8 @@ class RecipientCaptiveInfo
   end
 end
 
-# {http://www.docusign.net/API/3.0}ArrayOfString
-class ArrayOfString < ::Array
+# {http://www.docusign.net/API/3.0}ArrayOfString1
+class ArrayOfString1 < ::Array
 end
 
 # {http://www.docusign.net/API/3.0}IDCheckInformationInput
@@ -394,6 +423,7 @@ end
 #   pageNumber - SOAP::SOAPNonNegativeInteger
 #   xPosition - SOAP::SOAPNonNegativeInteger
 #   yPosition - SOAP::SOAPNonNegativeInteger
+#   scaleValue - SOAP::SOAPDecimal
 #   anchorTabItem - Docusign::AnchorTab
 #   type - Docusign::TabTypeCode
 #   name - SOAP::SOAPString
@@ -413,12 +443,17 @@ end
 #   customTabValidationMessage - SOAP::SOAPString
 #   templateLocked - SOAP::SOAPBoolean
 #   templateRequired - SOAP::SOAPBoolean
+#   conditionalParentLabel - SOAP::SOAPString
+#   conditionalParentValue - SOAP::SOAPString
+#   sharedTab - SOAP::SOAPBoolean
+#   requireInitialOnSharedTabChange - SOAP::SOAPBoolean
 class Tab
   attr_accessor :documentID
   attr_accessor :recipientID
   attr_accessor :pageNumber
   attr_accessor :xPosition
   attr_accessor :yPosition
+  attr_accessor :scaleValue
   attr_accessor :anchorTabItem
   attr_accessor :type
   attr_accessor :name
@@ -438,13 +473,18 @@ class Tab
   attr_accessor :customTabValidationMessage
   attr_accessor :templateLocked
   attr_accessor :templateRequired
+  attr_accessor :conditionalParentLabel
+  attr_accessor :conditionalParentValue
+  attr_accessor :sharedTab
+  attr_accessor :requireInitialOnSharedTabChange
 
-  def initialize(documentID = nil, recipientID = nil, pageNumber = nil, xPosition = nil, yPosition = nil, anchorTabItem = nil, type = nil, name = nil, tabLabel = nil, value = nil, customTabType = nil, customTabWidth = nil, customTabHeight = nil, customTabRequired = nil, customTabLocked = nil, customTabDisableAutoSize = nil, customTabListItems = nil, customTabListValues = nil, customTabListSelectedValue = nil, customTabRadioGroupName = nil, customTabValidationPattern = nil, customTabValidationMessage = nil, templateLocked = nil, templateRequired = nil)
+  def initialize(documentID = nil, recipientID = nil, pageNumber = nil, xPosition = nil, yPosition = nil, scaleValue = nil, anchorTabItem = nil, type = nil, name = nil, tabLabel = nil, value = nil, customTabType = nil, customTabWidth = nil, customTabHeight = nil, customTabRequired = nil, customTabLocked = nil, customTabDisableAutoSize = nil, customTabListItems = nil, customTabListValues = nil, customTabListSelectedValue = nil, customTabRadioGroupName = nil, customTabValidationPattern = nil, customTabValidationMessage = nil, templateLocked = nil, templateRequired = nil, conditionalParentLabel = nil, conditionalParentValue = nil, sharedTab = nil, requireInitialOnSharedTabChange = nil)
     @documentID = documentID
     @recipientID = recipientID
     @pageNumber = pageNumber
     @xPosition = xPosition
     @yPosition = yPosition
+    @scaleValue = scaleValue
     @anchorTabItem = anchorTabItem
     @type = type
     @name = name
@@ -464,6 +504,10 @@ class Tab
     @customTabValidationMessage = customTabValidationMessage
     @templateLocked = templateLocked
     @templateRequired = templateRequired
+    @conditionalParentLabel = conditionalParentLabel
+    @conditionalParentValue = conditionalParentValue
+    @sharedTab = sharedTab
+    @requireInitialOnSharedTabChange = requireInitialOnSharedTabChange
   end
 end
 
@@ -472,17 +516,20 @@ end
 #   xOffset - SOAP::SOAPDouble
 #   yOffset - SOAP::SOAPDouble
 #   unit - Docusign::UnitTypeCode
+#   ignoreIfNotPresent - SOAP::SOAPBoolean
 class AnchorTab
   attr_accessor :anchorTabString
   attr_accessor :xOffset
   attr_accessor :yOffset
   attr_accessor :unit
+  attr_accessor :ignoreIfNotPresent
 
-  def initialize(anchorTabString = nil, xOffset = nil, yOffset = nil, unit = nil)
+  def initialize(anchorTabString = nil, xOffset = nil, yOffset = nil, unit = nil, ignoreIfNotPresent = nil)
     @anchorTabString = anchorTabString
     @xOffset = xOffset
     @yOffset = yOffset
     @unit = unit
+    @ignoreIfNotPresent = ignoreIfNotPresent
   end
 end
 
@@ -495,17 +542,23 @@ end
 #   show - SOAP::SOAPString
 #   required - SOAP::SOAPString
 #   value - SOAP::SOAPString
+#   customFieldType - Docusign::CustomFieldType
+#   listItems - SOAP::SOAPString
 class CustomField
   attr_accessor :name
   attr_accessor :show
   attr_accessor :required
   attr_accessor :value
+  attr_accessor :customFieldType
+  attr_accessor :listItems
 
-  def initialize(name = nil, show = nil, required = nil, value = nil)
+  def initialize(name = nil, show = nil, required = nil, value = nil, customFieldType = nil, listItems = nil)
     @name = name
     @show = show
     @required = required
     @value = value
+    @customFieldType = customFieldType
+    @listItems = listItems
   end
 end
 
@@ -696,12 +749,13 @@ end
 #   autoNavigation - SOAP::SOAPBoolean
 #   iDCheckInformation - Docusign::IDCheckInformation
 #   recipientAuthenticationStatus - Docusign::AuthenticationStatus
-#   customFields - Docusign::ArrayOfString
+#   customFields - Docusign::ArrayOfString1
 #   tabStatuses - Docusign::ArrayOfTabStatus
 #   recipientAttachment - Docusign::ArrayOfAttachment
 #   accountStatus - SOAP::SOAPString
 #   esignAgreementInformation - Docusign::RecipientStatusEsignAgreementInformation
 #   formData - Docusign::FormData
+#   recipientId - SOAP::SOAPString
 class RecipientStatus
   attr_accessor :type
   attr_accessor :email
@@ -724,8 +778,9 @@ class RecipientStatus
   attr_accessor :accountStatus
   attr_accessor :esignAgreementInformation
   attr_accessor :formData
+  attr_accessor :recipientId
 
-  def initialize(type = nil, email = nil, userName = nil, routingOrder = nil, sent = nil, delivered = nil, signed = nil, declined = nil, declineReason = nil, status = nil, recipientIPAddress = nil, clientUserId = nil, autoNavigation = nil, iDCheckInformation = nil, recipientAuthenticationStatus = nil, customFields = nil, tabStatuses = nil, recipientAttachment = nil, accountStatus = nil, esignAgreementInformation = nil, formData = nil)
+  def initialize(type = nil, email = nil, userName = nil, routingOrder = nil, sent = nil, delivered = nil, signed = nil, declined = nil, declineReason = nil, status = nil, recipientIPAddress = nil, clientUserId = nil, autoNavigation = nil, iDCheckInformation = nil, recipientAuthenticationStatus = nil, customFields = nil, tabStatuses = nil, recipientAttachment = nil, accountStatus = nil, esignAgreementInformation = nil, formData = nil, recipientId = nil)
     @type = type
     @email = email
     @userName = userName
@@ -747,6 +802,7 @@ class RecipientStatus
     @accountStatus = accountStatus
     @esignAgreementInformation = esignAgreementInformation
     @formData = formData
+    @recipientId = recipientId
   end
 end
 
@@ -773,6 +829,7 @@ end
 #   ageVerifyResult - Docusign::EventResult
 #   sTANPinResult - Docusign::EventResult
 #   oFACResult - Docusign::EventResult
+#   phoneAuthResult - Docusign::EventResult
 class AuthenticationStatus
   attr_accessor :accessCodeResult
   attr_accessor :iDQuestionsResult
@@ -780,14 +837,16 @@ class AuthenticationStatus
   attr_accessor :ageVerifyResult
   attr_accessor :sTANPinResult
   attr_accessor :oFACResult
+  attr_accessor :phoneAuthResult
 
-  def initialize(accessCodeResult = nil, iDQuestionsResult = nil, iDLookupResult = nil, ageVerifyResult = nil, sTANPinResult = nil, oFACResult = nil)
+  def initialize(accessCodeResult = nil, iDQuestionsResult = nil, iDLookupResult = nil, ageVerifyResult = nil, sTANPinResult = nil, oFACResult = nil, phoneAuthResult = nil)
     @accessCodeResult = accessCodeResult
     @iDQuestionsResult = iDQuestionsResult
     @iDLookupResult = iDLookupResult
     @ageVerifyResult = ageVerifyResult
     @sTANPinResult = sTANPinResult
     @oFACResult = oFACResult
+    @phoneAuthResult = phoneAuthResult
   end
 end
 
@@ -824,6 +883,7 @@ end
 #   roleName - SOAP::SOAPString
 #   listValues - SOAP::SOAPString
 #   listSelectedValue - SOAP::SOAPString
+#   scaleValue - SOAP::SOAPDecimal
 class TabStatus
   attr_accessor :tabType
   attr_accessor :status
@@ -840,8 +900,9 @@ class TabStatus
   attr_accessor :roleName
   attr_accessor :listValues
   attr_accessor :listSelectedValue
+  attr_accessor :scaleValue
 
-  def initialize(tabType = nil, status = nil, xPosition = nil, yPosition = nil, signed = nil, tabLabel = nil, tabName = nil, tabValue = nil, documentID = nil, pageNumber = nil, originalValue = nil, validationPattern = nil, roleName = nil, listValues = nil, listSelectedValue = nil)
+  def initialize(tabType = nil, status = nil, xPosition = nil, yPosition = nil, signed = nil, tabLabel = nil, tabName = nil, tabValue = nil, documentID = nil, pageNumber = nil, originalValue = nil, validationPattern = nil, roleName = nil, listValues = nil, listSelectedValue = nil, scaleValue = nil)
     @tabType = tabType
     @status = status
     @xPosition = xPosition
@@ -857,6 +918,7 @@ class TabStatus
     @roleName = roleName
     @listValues = listValues
     @listSelectedValue = listSelectedValue
+    @scaleValue = scaleValue
   end
 end
 
@@ -1147,7 +1209,7 @@ end
 #   beginDateTime - Docusign::EnvelopeStatusFilterBeginDateTime
 #   endDateTime - SOAP::SOAPDateTime
 #   statuses - Docusign::ArrayOfEnvelopeStatusCode
-#   envelopeIds - Docusign::ArrayOfString1
+#   envelopeIds - Docusign::ArrayOfString2
 #   startAtIndex - SOAP::SOAPNonNegativeInteger
 #   aCStatus - Docusign::EnvelopeACStatusCode
 class EnvelopeStatusFilter
@@ -1212,8 +1274,8 @@ end
 class ArrayOfEnvelopeStatusCode < ::Array
 end
 
-# {http://www.docusign.net/API/3.0}ArrayOfString1
-class ArrayOfString1 < ::Array
+# {http://www.docusign.net/API/3.0}ArrayOfString2
+class ArrayOfString2 < ::Array
 end
 
 # {http://www.docusign.net/API/3.0}FilteredEnvelopeStatuses
@@ -1278,7 +1340,7 @@ end
 # {http://www.docusign.net/API/3.0}RecipientList
 #   reservedRecipientEmail - SOAP::SOAPBoolean
 #   multipleUsers - SOAP::SOAPBoolean
-#   recipientName - Docusign::ArrayOfString2
+#   recipientName - Docusign::ArrayOfString3
 class RecipientList
   attr_accessor :reservedRecipientEmail
   attr_accessor :multipleUsers
@@ -1291,8 +1353,8 @@ class RecipientList
   end
 end
 
-# {http://www.docusign.net/API/3.0}ArrayOfString2
-class ArrayOfString2 < ::Array
+# {http://www.docusign.net/API/3.0}ArrayOfString3
+class ArrayOfString3 < ::Array
 end
 
 # {http://www.docusign.net/API/3.0}VoidEnvelopeStatus
@@ -1334,6 +1396,8 @@ end
 #   onException - SOAP::SOAPString
 #   onAccessCodeFailed - SOAP::SOAPString
 #   onIdCheckFailed - SOAP::SOAPString
+#   onFaxPending - SOAP::SOAPString
+#   generateSignedDocumentAsynch - SOAP::SOAPBoolean
 class RequestRecipientTokenClientURLs
   attr_accessor :onSigningComplete
   attr_accessor :onViewingComplete
@@ -1344,8 +1408,10 @@ class RequestRecipientTokenClientURLs
   attr_accessor :onException
   attr_accessor :onAccessCodeFailed
   attr_accessor :onIdCheckFailed
+  attr_accessor :onFaxPending
+  attr_accessor :generateSignedDocumentAsynch
 
-  def initialize(onSigningComplete = nil, onViewingComplete = nil, onCancel = nil, onDecline = nil, onSessionTimeout = nil, onTTLExpired = nil, onException = nil, onAccessCodeFailed = nil, onIdCheckFailed = nil)
+  def initialize(onSigningComplete = nil, onViewingComplete = nil, onCancel = nil, onDecline = nil, onSessionTimeout = nil, onTTLExpired = nil, onException = nil, onAccessCodeFailed = nil, onIdCheckFailed = nil, onFaxPending = nil, generateSignedDocumentAsynch = nil)
     @onSigningComplete = onSigningComplete
     @onViewingComplete = onViewingComplete
     @onCancel = onCancel
@@ -1355,6 +1421,8 @@ class RequestRecipientTokenClientURLs
     @onException = onException
     @onAccessCodeFailed = onAccessCodeFailed
     @onIdCheckFailed = onIdCheckFailed
+    @onFaxPending = onFaxPending
+    @generateSignedDocumentAsynch = generateSignedDocumentAsynch
   end
 end
 
@@ -1371,7 +1439,7 @@ end
 # {http://www.docusign.net/API/3.0}AccountMembershipFeaturesList
 #   email - SOAP::SOAPString
 #   userName - SOAP::SOAPString
-#   enabledFeaturesSet - Docusign::ArrayOfString3
+#   enabledFeaturesSet - Docusign::ArrayOfString4
 class AccountMembershipFeaturesList
   attr_accessor :email
   attr_accessor :userName
@@ -1384,8 +1452,8 @@ class AccountMembershipFeaturesList
   end
 end
 
-# {http://www.docusign.net/API/3.0}ArrayOfString3
-class ArrayOfString3 < ::Array
+# {http://www.docusign.net/API/3.0}ArrayOfString4
+class ArrayOfString4 < ::Array
 end
 
 # {http://www.docusign.net/API/3.0}AccountSettingsList
@@ -1530,6 +1598,8 @@ class ArrayOfRecipient1 < ::Array
 end
 
 # {http://www.docusign.net/API/3.0}EnvelopeInformation
+#   transactionID - SOAP::SOAPString
+#   asynchronous - SOAP::SOAPBoolean
 #   accountId - SOAP::SOAPString
 #   emailBlurb - SOAP::SOAPString
 #   subject - SOAP::SOAPString
@@ -1541,7 +1611,12 @@ end
 #   authoritativeCopy - SOAP::SOAPBoolean
 #   notification - Docusign::Notification
 #   enforceSignerVisibility - SOAP::SOAPBoolean
+#   enableWetSign - SOAP::SOAPBoolean
+#   allowRecipientRecursion - SOAP::SOAPBoolean
+#   allowMarkup - SOAP::SOAPBoolean
 class EnvelopeInformation
+  attr_accessor :transactionID
+  attr_accessor :asynchronous
   attr_accessor :accountId
   attr_accessor :emailBlurb
   attr_accessor :subject
@@ -1553,8 +1628,13 @@ class EnvelopeInformation
   attr_accessor :authoritativeCopy
   attr_accessor :notification
   attr_accessor :enforceSignerVisibility
+  attr_accessor :enableWetSign
+  attr_accessor :allowRecipientRecursion
+  attr_accessor :allowMarkup
 
-  def initialize(accountId = nil, emailBlurb = nil, subject = nil, signingLocation = nil, customFields = nil, vaultingOptions = nil, autoNavigation = nil, envelopeIdStamping = nil, authoritativeCopy = nil, notification = nil, enforceSignerVisibility = nil)
+  def initialize(transactionID = nil, asynchronous = nil, accountId = nil, emailBlurb = nil, subject = nil, signingLocation = nil, customFields = nil, vaultingOptions = nil, autoNavigation = nil, envelopeIdStamping = nil, authoritativeCopy = nil, notification = nil, enforceSignerVisibility = nil, enableWetSign = nil, allowRecipientRecursion = nil, allowMarkup = nil)
+    @transactionID = transactionID
+    @asynchronous = asynchronous
     @accountId = accountId
     @emailBlurb = emailBlurb
     @subject = subject
@@ -1566,6 +1646,9 @@ class EnvelopeInformation
     @authoritativeCopy = authoritativeCopy
     @notification = notification
     @enforceSignerVisibility = enforceSignerVisibility
+    @enableWetSign = enableWetSign
+    @allowRecipientRecursion = allowRecipientRecursion
+    @allowMarkup = allowMarkup
   end
 end
 
@@ -1672,6 +1755,10 @@ end
 #   shared - SOAP::SOAPBoolean
 #   created - SOAP::SOAPDateTime
 #   owner - SOAP::SOAPBoolean
+#   phone1 - Docusign::AddressBookPhoneNumber
+#   phone2 - Docusign::AddressBookPhoneNumber
+#   phone3 - Docusign::AddressBookPhoneNumber
+#   phone4 - Docusign::AddressBookPhoneNumber
 class AddressBookItem
   attr_accessor :addressBookID
   attr_accessor :email
@@ -1680,8 +1767,12 @@ class AddressBookItem
   attr_accessor :shared
   attr_accessor :created
   attr_accessor :owner
+  attr_accessor :phone1
+  attr_accessor :phone2
+  attr_accessor :phone3
+  attr_accessor :phone4
 
-  def initialize(addressBookID = nil, email = nil, userName = nil, accountName = nil, shared = nil, created = nil, owner = nil)
+  def initialize(addressBookID = nil, email = nil, userName = nil, accountName = nil, shared = nil, created = nil, owner = nil, phone1 = nil, phone2 = nil, phone3 = nil, phone4 = nil)
     @addressBookID = addressBookID
     @email = email
     @userName = userName
@@ -1689,6 +1780,23 @@ class AddressBookItem
     @shared = shared
     @created = created
     @owner = owner
+    @phone1 = phone1
+    @phone2 = phone2
+    @phone3 = phone3
+    @phone4 = phone4
+  end
+end
+
+# {http://www.docusign.net/API/3.0}AddressBookPhoneNumber
+#   phoneNumber - SOAP::SOAPString
+#   designation - Docusign::PhoneNumberDesignation
+class AddressBookPhoneNumber
+  attr_accessor :phoneNumber
+  attr_accessor :designation
+
+  def initialize(phoneNumber = nil, designation = nil)
+    @phoneNumber = phoneNumber
+    @designation = designation
   end
 end
 
@@ -1723,10 +1831,25 @@ class AddressBookRemoveItem
   end
 end
 
+# {http://www.docusign.net/API/3.0}SynchEnvelopeStatus
+#   envelopeStatus - Docusign::EnvelopeStatusCode
+#   envelopeID - SOAP::SOAPString
+class SynchEnvelopeStatus
+  attr_accessor :envelopeStatus
+  attr_accessor :envelopeID
+
+  def initialize(envelopeStatus = nil, envelopeID = nil)
+    @envelopeStatus = envelopeStatus
+    @envelopeID = envelopeID
+  end
+end
+
 # {http://www.docusign.net/API/3.0}RecipientTypeCode
 class RecipientTypeCode < ::String
+  Agent = RecipientTypeCode.new("Agent")
   CarbonCopy = RecipientTypeCode.new("CarbonCopy")
   CertifiedDelivery = RecipientTypeCode.new("CertifiedDelivery")
+  Editor = RecipientTypeCode.new("Editor")
   InPersonSigner = RecipientTypeCode.new("InPersonSigner")
   Signer = RecipientTypeCode.new("Signer")
 end
@@ -1766,6 +1889,8 @@ class TabTypeCode < ::String
   InitialHere = TabTypeCode.new("InitialHere")
   InitialHereOptional = TabTypeCode.new("InitialHereOptional")
   SignHere = TabTypeCode.new("SignHere")
+  SignHereOptional = TabTypeCode.new("SignHereOptional")
+  SignerAttachment = TabTypeCode.new("SignerAttachment")
   Title = TabTypeCode.new("Title")
 end
 
@@ -1789,6 +1914,12 @@ class SigningLocationCode < ::String
   Online = SigningLocationCode.new("Online")
 end
 
+# {http://www.docusign.net/API/3.0}CustomFieldType
+class CustomFieldType < ::String
+  List = CustomFieldType.new("List")
+  Text = CustomFieldType.new("Text")
+end
+
 # {http://www.docusign.net/API/3.0}VaultingModeCode
 class VaultingModeCode < ::String
   EODAuthoritativeCopy = VaultingModeCode.new("EODAuthoritativeCopy")
@@ -1802,6 +1933,7 @@ class RecipientStatusCode < ::String
   Created = RecipientStatusCode.new("Created")
   Declined = RecipientStatusCode.new("Declined")
   Delivered = RecipientStatusCode.new("Delivered")
+  FaxPending = RecipientStatusCode.new("FaxPending")
   Sent = RecipientStatusCode.new("Sent")
   Signed = RecipientStatusCode.new("Signed")
 end
@@ -1820,6 +1952,7 @@ class EnvelopeStatusCode < ::String
   Declined = EnvelopeStatusCode.new("Declined")
   Deleted = EnvelopeStatusCode.new("Deleted")
   Delivered = EnvelopeStatusCode.new("Delivered")
+  Processing = EnvelopeStatusCode.new("Processing")
   Sent = EnvelopeStatusCode.new("Sent")
   Signed = EnvelopeStatusCode.new("Signed")
   Template = EnvelopeStatusCode.new("Template")
@@ -1876,6 +2009,14 @@ class TemplateLocationCode < ::String
   Server = TemplateLocationCode.new("Server")
 end
 
+# {http://www.docusign.net/API/3.0}PhoneNumberDesignation
+class PhoneNumberDesignation < ::String
+  Home = PhoneNumberDesignation.new("Home")
+  Mobile = PhoneNumberDesignation.new("Mobile")
+  Other = PhoneNumberDesignation.new("Other")
+  Work = PhoneNumberDesignation.new("Work")
+end
+
 # {http://www.docusign.net/API/3.0}CreateEnvelope
 #   envelope - Docusign::Envelope
 class CreateEnvelope
@@ -1916,6 +2057,29 @@ class CreateAndSendEnvelopeResponse
   end
 end
 
+# {http://www.docusign.net/API/3.0}SendEnvelope
+#   envelopeId - SOAP::SOAPString
+#   accountId - SOAP::SOAPString
+class SendEnvelope
+  attr_accessor :envelopeId
+  attr_accessor :accountId
+
+  def initialize(envelopeId = nil, accountId = nil)
+    @envelopeId = envelopeId
+    @accountId = accountId
+  end
+end
+
+# {http://www.docusign.net/API/3.0}SendEnvelopeResponse
+#   sendEnvelopeResult - Docusign::EnvelopeStatus
+class SendEnvelopeResponse
+  attr_accessor :sendEnvelopeResult
+
+  def initialize(sendEnvelopeResult = nil)
+    @sendEnvelopeResult = sendEnvelopeResult
+  end
+end
+
 # {http://www.docusign.net/API/3.0}CorrectAndResendEnvelope
 #   correction - Docusign::Correction
 class CorrectAndResendEnvelope
@@ -1933,6 +2097,26 @@ class CorrectAndResendEnvelopeResponse
 
   def initialize(correctAndResendEnvelopeResult = nil)
     @correctAndResendEnvelopeResult = correctAndResendEnvelopeResult
+  end
+end
+
+# {http://www.docusign.net/API/3.0}RequestPDFNoWaterMark
+#   envelopeID - SOAP::SOAPString
+class RequestPDFNoWaterMark
+  attr_accessor :envelopeID
+
+  def initialize(envelopeID = nil)
+    @envelopeID = envelopeID
+  end
+end
+
+# {http://www.docusign.net/API/3.0}RequestPDFNoWaterMarkResponse
+#   requestPDFNoWaterMarkResult - Docusign::EnvelopePDF
+class RequestPDFNoWaterMarkResponse
+  attr_accessor :requestPDFNoWaterMarkResult
+
+  def initialize(requestPDFNoWaterMarkResult = nil)
+    @requestPDFNoWaterMarkResult = requestPDFNoWaterMarkResult
   end
 end
 
@@ -2492,11 +2676,14 @@ end
 
 # {http://www.docusign.net/API/3.0}RequestTemplates
 #   accountID - SOAP::SOAPString
+#   includeAdvancedTemplates - SOAP::SOAPBoolean
 class RequestTemplates
   attr_accessor :accountID
+  attr_accessor :includeAdvancedTemplates
 
-  def initialize(accountID = nil)
+  def initialize(accountID = nil, includeAdvancedTemplates = nil)
     @accountID = accountID
+    @includeAdvancedTemplates = includeAdvancedTemplates
   end
 end
 
@@ -2619,6 +2806,83 @@ class RemoveAddressBookItemsResponse
   end
 end
 
+# {http://www.docusign.net/API/3.0}SynchEnvelope
+#   transactionID - SOAP::SOAPString
+#   accountID - SOAP::SOAPString
+#   block - SOAP::SOAPBoolean
+class SynchEnvelope
+  attr_accessor :transactionID
+  attr_accessor :accountID
+  attr_accessor :block
 
+  def initialize(transactionID = nil, accountID = nil, block = nil)
+    @transactionID = transactionID
+    @accountID = accountID
+    @block = block
+  end
 end
 
+# {http://www.docusign.net/API/3.0}SynchEnvelopeResponse
+#   synchEnvelopeResult - Docusign::SynchEnvelopeStatus
+class SynchEnvelopeResponse
+  attr_accessor :synchEnvelopeResult
+
+  def initialize(synchEnvelopeResult = nil)
+    @synchEnvelopeResult = synchEnvelopeResult
+  end
+end
+
+# {http://www.docusign.net/API/3.0}RequestSenderToken
+#   envelopeID - SOAP::SOAPString
+#   accountID - SOAP::SOAPString
+#   returnURL - SOAP::SOAPString
+class RequestSenderToken
+  attr_accessor :envelopeID
+  attr_accessor :accountID
+  attr_accessor :returnURL
+
+  def initialize(envelopeID = nil, accountID = nil, returnURL = nil)
+    @envelopeID = envelopeID
+    @accountID = accountID
+    @returnURL = returnURL
+  end
+end
+
+# {http://www.docusign.net/API/3.0}RequestSenderTokenResponse
+#   requestSenderTokenResult - SOAP::SOAPString
+class RequestSenderTokenResponse
+  attr_accessor :requestSenderTokenResult
+
+  def initialize(requestSenderTokenResult = nil)
+    @requestSenderTokenResult = requestSenderTokenResult
+  end
+end
+
+# {http://www.docusign.net/API/3.0}RequestCorrectToken
+#   envelopeID - SOAP::SOAPString
+#   suppressNavigation - SOAP::SOAPBoolean
+#   returnURL - SOAP::SOAPString
+class RequestCorrectToken
+  attr_accessor :envelopeID
+  attr_accessor :suppressNavigation
+  attr_accessor :returnURL
+
+  def initialize(envelopeID = nil, suppressNavigation = nil, returnURL = nil)
+    @envelopeID = envelopeID
+    @suppressNavigation = suppressNavigation
+    @returnURL = returnURL
+  end
+end
+
+# {http://www.docusign.net/API/3.0}RequestCorrectTokenResponse
+#   requestCorrectTokenResult - SOAP::SOAPString
+class RequestCorrectTokenResponse
+  attr_accessor :requestCorrectTokenResult
+
+  def initialize(requestCorrectTokenResult = nil)
+    @requestCorrectTokenResult = requestCorrectTokenResult
+  end
+end
+
+
+end

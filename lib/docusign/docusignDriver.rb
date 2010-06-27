@@ -1,24 +1,10 @@
-# Copyright (C) DocuSign, Inc.  All rights reserved.
-# 
-# This source code is intended only as a supplement to DocuSign SDK 
-# and/or on-line documentation.
-# 
-# This sample is designed to demonstrate DocuSign features and is not intended 
-# for production use. Code and policy for a production application must be 
-# developed to meet the specific data and security requirements of the 
-# application.
-# 
-# THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-# KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
-# PARTICULAR PURPOSE.
-
+require 'lib/docusign.rb'
 require 'soap/rpc/driver'
 
 module Docusign
 
 class APIServiceSoap < ::SOAP::RPC::Driver
-  DefaultEndpointUrl = "https://www.docusign.net/api/3.0/api.asmx"
+  DefaultEndpointUrl = "https://preview.docusign.net/api/3.0/api.asmx"
 
   Methods = [
     [ "http://www.docusign.net/API/3.0/CreateEnvelope",
@@ -37,10 +23,26 @@ class APIServiceSoap < ::SOAP::RPC::Driver
         :response_style => :document, :response_use => :literal,
         :faults => {} }
     ],
+    [ "http://www.docusign.net/API/3.0/SendEnvelope",
+      "sendEnvelope",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "SendEnvelope"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "SendEnvelopeResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
     [ "http://www.docusign.net/API/3.0/CorrectAndResendEnvelope",
       "correctAndResendEnvelope",
       [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "CorrectAndResendEnvelope"]],
         ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "CorrectAndResendEnvelopeResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/RequestPDFNoWaterMark",
+      "requestPDFNoWaterMark",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestPDFNoWaterMark"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestPDFNoWaterMarkResponse"]] ],
       { :request_style =>  :document, :request_use =>  :literal,
         :response_style => :document, :response_use => :literal,
         :faults => {} }
@@ -284,6 +286,30 @@ class APIServiceSoap < ::SOAP::RPC::Driver
       { :request_style =>  :document, :request_use =>  :literal,
         :response_style => :document, :response_use => :literal,
         :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/SynchEnvelope",
+      "synchEnvelope",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "SynchEnvelope"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "SynchEnvelopeResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/RequestSenderToken",
+      "requestSenderToken",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestSenderToken"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestSenderTokenResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/RequestCorrectToken",
+      "requestCorrectToken",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestCorrectToken"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestCorrectTokenResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
     ]
   ]
 
@@ -300,7 +326,6 @@ private
   def init_methods
     Methods.each do |definitions|
       opt = definitions.last
-      opt.merge! :attributeformdefault => true
       if opt[:request_style] == :document
         add_document_operation(*definitions)
       else
