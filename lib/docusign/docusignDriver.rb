@@ -1,5 +1,3 @@
-require 'docusign.rb'
-require 'docusignMappingRegistry.rb'
 require 'soap/rpc/driver'
 
 module Docusign

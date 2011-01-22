@@ -1,4 +1,3 @@
-require 'docusign.rb'
 require 'soap/mapping'
 
 module Docusign

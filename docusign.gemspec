@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Leigh Caplan"]
-  s.date = %q{2011-01-18}
+  s.date = %q{2011-01-22}
   s.default_executable = %q{docusign}
   s.description = %q{A library for working with the Docusign API and associated objects.
 Provides SOAP4R-generated proxy classes, and extends many useful classes
@@ -50,12 +50,13 @@ with familiar Ruby-like syntax.
      "lib/docusign/utilities.rb",
      "lib/wsdl/DocuSign3.0.10API.wsdl",
      "lib/wsdl/DocuSign3.0.11API.wsdl",
+     "lib/wsdl/DocuSign3.0.2API.wsdl",
+     "lib/wsdl/DocuSign3.0.2CredentialAPI.wsdl",
      "spec/docusign/builder/anchor_builder_spec.rb",
      "spec/docusign/builder/tab_builder_spec.rb",
      "spec/docusign/document_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
-     "tasks/docusign_tasks.rake",
      "test/test_docusign.rb"
   ]
   s.homepage = %q{http://github.com/texel/docusign}
@@ -65,10 +66,10 @@ with familiar Ruby-like syntax.
   s.summary = %q{A library for working with the Docusign API and associated objects}
   s.test_files = [
     "spec/docusign/builder/anchor_builder_spec.rb",
-    "spec/docusign/builder/tab_builder_spec.rb",
-    "spec/docusign/document_spec.rb",
-    "spec/spec_helper.rb",
-    "test/test_docusign.rb"
+     "spec/docusign/builder/tab_builder_spec.rb",
+     "spec/docusign/document_spec.rb",
+     "spec/spec_helper.rb",
+     "test/test_docusign.rb"
   ]
 
   if s.respond_to? :specification_version then
