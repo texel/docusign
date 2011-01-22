@@ -1,10 +1,11 @@
-require 'lib/docusign.rb'
+require 'docusign.rb'
+require 'docusignMappingRegistry.rb'
 require 'soap/rpc/driver'
 
 module Docusign
 
 class APIServiceSoap < ::SOAP::RPC::Driver
-  DefaultEndpointUrl = "https://preview.docusign.net/api/3.0/api.asmx"
+  DefaultEndpointUrl = "https://demo.docusign.net/api/3.0/api.asmx"
 
   Methods = [
     [ "http://www.docusign.net/API/3.0/CreateEnvelope",
@@ -55,6 +56,14 @@ class APIServiceSoap < ::SOAP::RPC::Driver
         :response_style => :document, :response_use => :literal,
         :faults => {} }
     ],
+    [ "http://www.docusign.net/API/3.0/RequestPDFWithCert",
+      "requestPDFWithCert",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestPDFWithCert"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestPDFWithCertResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
     [ "http://www.docusign.net/API/3.0/RequestDocumentPDFs",
       "requestDocumentPDFs",
       [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestDocumentPDFs"]],
@@ -91,6 +100,22 @@ class APIServiceSoap < ::SOAP::RPC::Driver
       "requestStatus",
       [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestStatus"]],
         ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestStatusResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/RequestStatusCodes",
+      "requestStatusCodes",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestStatusCodes"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestStatusCodesResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/RequestStatusChanges",
+      "requestStatusChanges",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestStatusChanges"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestStatusChangesResponse"]] ],
       { :request_style =>  :document, :request_use =>  :literal,
         :response_style => :document, :response_use => :literal,
         :faults => {} }
@@ -207,6 +232,14 @@ class APIServiceSoap < ::SOAP::RPC::Driver
         :response_style => :document, :response_use => :literal,
         :faults => {} }
     ],
+    [ "http://www.docusign.net/API/3.0/CreateEnvelopeFromTemplatesAndForms",
+      "createEnvelopeFromTemplatesAndForms",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "CreateEnvelopeFromTemplatesAndForms"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "CreateEnvelopeFromTemplatesAndFormsResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
     [ "http://www.docusign.net/API/3.0/GetStatusInDocuSignConnectFormat",
       "getStatusInDocuSignConnectFormat",
       [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "GetStatusInDocuSignConnectFormat"]],
@@ -307,6 +340,30 @@ class APIServiceSoap < ::SOAP::RPC::Driver
       "requestCorrectToken",
       [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestCorrectToken"]],
         ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestCorrectTokenResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/GetFolderItems",
+      "getFolderItems",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "GetFolderItems"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "GetFolderItemsResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/GetFolderList",
+      "getFolderList",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "GetFolderList"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "GetFolderListResponse"]] ],
+      { :request_style =>  :document, :request_use =>  :literal,
+        :response_style => :document, :response_use => :literal,
+        :faults => {} }
+    ],
+    [ "http://www.docusign.net/API/3.0/RequestEnvelope",
+      "requestEnvelope",
+      [ ["in", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestEnvelope"]],
+        ["out", "parameters", ["::SOAP::SOAPElement", "http://www.docusign.net/API/3.0", "RequestEnvelopeResponse"]] ],
       { :request_style =>  :document, :request_use =>  :literal,
         :response_style => :document, :response_use => :literal,
         :faults => {} }

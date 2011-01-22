@@ -46,13 +46,13 @@ namespace :docusign do
   namespace :services do
     desc "Generate SOAP stubs for Docusign API"
     task :generate do
-      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/wsdl/DocuSign3.0.11API.wsdl")
+      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/wsdl/DocuSign3.0.2API.wsdl")
       wsdl2ruby('docusign', 'Docusign', "file://#{wsdl_path}")
     end
     
     desc "Generate SOAP stubs for Docusign Credential API"
     task :generate_credential_api do
-      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/Credential.wsdl")
+      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/wsdl/DocuSign3.0.2CredentialAPI.wsdl")
       wsdl2ruby('docusign/credential', 'Docusign::Credential', "file://#{wsdl_path}")
     end
   end

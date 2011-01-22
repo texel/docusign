@@ -9,8 +9,11 @@ namespace :docusign do
   namespace :services do
     desc "Generate SOAP stubs for Salesforce API"
     task :generate => [:environment] do
-      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/../lib/DocuSign3.0.10API.wsdl")
+      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/../lib/DocuSign3.0.2API.wsdl")
       wsdl2ruby('docusign', 'Docusign', "file://#{wsdl_path}")
+
+      credential_path = File.expand_path(File.dirname(__FILE__) + "/../lib/DocuSign3.0.2CredentialAPI.wsdl")
+      wsdl2ruby('credential', 'Docusign::Credential', "file://#{credential_path}")
     end
   end
 end

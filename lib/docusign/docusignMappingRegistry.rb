@@ -1,4 +1,4 @@
-require 'lib/docusign.rb'
+require 'docusign.rb'
 require 'soap/mapping'
 
 module Docusign
@@ -31,7 +31,8 @@ module DefaultMappingRegistry
       ["envelopeAttachment", ["Docusign::ArrayOfAttachment", XSD::QName.new(NsC_30, "EnvelopeAttachment")], [0, 1]],
       ["enforceSignerVisibility", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnforceSignerVisibility")], [0, 1]],
       ["enableWetSign", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnableWetSign")], [0, 1]],
-      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]]
+      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]],
+      ["eventNotification", ["Docusign::EventNotification", XSD::QName.new(NsC_30, "EventNotification")], [0, 1]]
     ]
   )
 
@@ -97,7 +98,7 @@ module DefaultMappingRegistry
       ["type", ["Docusign::RecipientTypeCode", XSD::QName.new(NsC_30, "Type")]],
       ["accessCode", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccessCode")]],
       ["addAccessCodeToEmail", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AddAccessCodeToEmail")], [0, 1]],
-      ["requireIDLookup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireIDLookup")]],
+      ["requireIDLookup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireIDLookup")], [0, 1]],
       ["iDCheckConfigurationName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "IDCheckConfigurationName")], [0, 1]],
       ["phoneAuthentication", ["Docusign::RecipientPhoneAuthentication", XSD::QName.new(NsC_30, "PhoneAuthentication")], [0, 1]],
       ["signatureInfo", ["Docusign::RecipientSignatureInfo", XSD::QName.new(NsC_30, "SignatureInfo")], [0, 1]],
@@ -111,7 +112,8 @@ module DefaultMappingRegistry
       ["roleName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "RoleName")], [0, 1]],
       ["templateLocked", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateLocked")], [0, 1]],
       ["templateRequired", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateRequired")], [0, 1]],
-      ["templateAccessCodeRequired", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateAccessCodeRequired")], [0, 1]]
+      ["templateAccessCodeRequired", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateAccessCodeRequired")], [0, 1]],
+      ["defaultRecipient", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "DefaultRecipient")], [0, 1]]
     ]
   )
 
@@ -305,7 +307,8 @@ module DefaultMappingRegistry
       ["conditionalParentLabel", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ConditionalParentLabel")], [0, 1]],
       ["conditionalParentValue", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ConditionalParentValue")], [0, 1]],
       ["sharedTab", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "SharedTab")], [0, 1]],
-      ["requireInitialOnSharedTabChange", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireInitialOnSharedTabChange")], [0, 1]]
+      ["requireInitialOnSharedTabChange", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireInitialOnSharedTabChange")], [0, 1]],
+      ["concealValueOnDocument", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "ConcealValueOnDocument")], [0, 1]]
     ]
   )
 
@@ -380,6 +383,33 @@ module DefaultMappingRegistry
       ["expireEnabled", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "ExpireEnabled")]],
       ["expireAfter", ["SOAP::SOAPNonNegativeInteger", XSD::QName.new(NsC_30, "ExpireAfter")], [0, 1]],
       ["expireWarn", ["SOAP::SOAPNonNegativeInteger", XSD::QName.new(NsC_30, "ExpireWarn")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::EventNotification,
+    :schema_type => XSD::QName.new(NsC_30, "EventNotification"),
+    :schema_element => [
+      ["uRL", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "URL")], [0, 1]],
+      ["loggingEnabled", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "LoggingEnabled")], [0, 1]],
+      ["envelopeEvents", ["Docusign::ArrayOfEnvelopeEvent", XSD::QName.new(NsC_30, "EnvelopeEvents")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfEnvelopeEvent,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfEnvelopeEvent"),
+    :schema_element => [
+      ["envelopeEvent", ["Docusign::EnvelopeEvent[]", XSD::QName.new(NsC_30, "EnvelopeEvent")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::EnvelopeEvent,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeEvent"),
+    :schema_element => [
+      ["envelopeEventStatusCode", ["Docusign::EnvelopeEventStatusCode", XSD::QName.new(NsC_30, "EnvelopeEventStatusCode")]],
+      ["includeDocuments", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "IncludeDocuments")]]
     ]
   )
 
@@ -518,7 +548,8 @@ module DefaultMappingRegistry
       ["roleName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "RoleName")], [0, 1]],
       ["listValues", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ListValues")], [0, 1]],
       ["listSelectedValue", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ListSelectedValue")], [0, 1]],
-      ["scaleValue", ["SOAP::SOAPDecimal", XSD::QName.new(NsC_30, "ScaleValue")], [0, 1]]
+      ["scaleValue", ["SOAP::SOAPDecimal", XSD::QName.new(NsC_30, "ScaleValue")], [0, 1]],
+      ["customTabType", ["Docusign::CustomTabType", XSD::QName.new(NsC_30, "CustomTabType")], [0, 1]]
     ]
   )
 
@@ -755,6 +786,44 @@ module DefaultMappingRegistry
     :schema_type => XSD::QName.new(NsC_30, "ArrayOfString2"),
     :schema_element => [
       ["envelopeId", ["SOAP::SOAPString[]", XSD::QName.new(NsC_30, "EnvelopeId")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::FilteredEnvelopeStatusChanges,
+    :schema_type => XSD::QName.new(NsC_30, "FilteredEnvelopeStatusChanges"),
+    :schema_element => [
+      ["resultSetSize", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "ResultSetSize")]],
+      ["envelopeStatusChanges", ["Docusign::ArrayOfEnvelopeStatusChange", XSD::QName.new(NsC_30, "EnvelopeStatusChanges")]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfEnvelopeStatusChange,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfEnvelopeStatusChange"),
+    :schema_element => [
+      ["envelopeStatusChange", ["Docusign::EnvelopeStatusChange[]", XSD::QName.new(NsC_30, "EnvelopeStatusChange")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::EnvelopeStatusChange,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeStatusChange"),
+    :schema_element => [
+      ["envelopeID", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "EnvelopeID")], [0, 1]],
+      ["status", ["Docusign::EnvelopeStatusCode", XSD::QName.new(NsC_30, "Status")]],
+      ["statusChanged", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "StatusChanged")]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::EnvelopeStatusChangeFilter,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeStatusChangeFilter"),
+    :schema_element => [
+      ["accountId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccountId")], [0, 1]],
+      ["userInfo", ["Docusign::UserInfo", XSD::QName.new(NsC_30, "UserInfo")], [0, 1]],
+      ["statusChangedSince", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "StatusChangedSince")]],
+      ["statuses", ["Docusign::ArrayOfEnvelopeStatusCode", XSD::QName.new(NsC_30, "Statuses")], [0, 1]]
     ]
   )
 
@@ -1018,7 +1087,69 @@ module DefaultMappingRegistry
       ["enforceSignerVisibility", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnforceSignerVisibility")], [0, 1]],
       ["enableWetSign", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnableWetSign")], [0, 1]],
       ["allowRecipientRecursion", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowRecipientRecursion")], [0, 1]],
-      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]]
+      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]],
+      ["eventNotification", ["Docusign::EventNotification", XSD::QName.new(NsC_30, "EventNotification")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfCompositeTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfCompositeTemplate"),
+    :schema_element => [
+      ["compositeTemplate", ["Docusign::CompositeTemplate[]", XSD::QName.new(NsC_30, "CompositeTemplate")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::CompositeTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "CompositeTemplate"),
+    :schema_element => [
+      ["serverTemplates", ["Docusign::ArrayOfServerTemplate", XSD::QName.new(NsC_30, "ServerTemplates")], [0, 1]],
+      ["inlineTemplates", ["Docusign::ArrayOfInlineTemplate", XSD::QName.new(NsC_30, "InlineTemplates")], [0, 1]],
+      ["pDFMetaDataTemplate", ["Docusign::PDFMetaDataTemplate", XSD::QName.new(NsC_30, "PDFMetaDataTemplate")], [0, 1]],
+      ["document", ["Docusign::Document", XSD::QName.new(NsC_30, "Document")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfServerTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfServerTemplate"),
+    :schema_element => [
+      ["serverTemplate", ["Docusign::ServerTemplate[]", XSD::QName.new(NsC_30, "ServerTemplate")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ServerTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ServerTemplate"),
+    :schema_element => [
+      ["sequence", ["SOAP::SOAPPositiveInteger", XSD::QName.new(NsC_30, "Sequence")], [0, 1]],
+      ["templateID", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "TemplateID")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfInlineTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfInlineTemplate"),
+    :schema_element => [
+      ["inlineTemplate", ["Docusign::InlineTemplate[]", XSD::QName.new(NsC_30, "InlineTemplate")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::InlineTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "InlineTemplate"),
+    :schema_element => [
+      ["sequence", ["SOAP::SOAPPositiveInteger", XSD::QName.new(NsC_30, "Sequence")], [0, 1]],
+      ["envelope", ["Docusign::Envelope", XSD::QName.new(NsC_30, "Envelope")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::PDFMetaDataTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "PDFMetaDataTemplate"),
+    :schema_element => [
+      ["sequence", ["SOAP::SOAPPositiveInteger", XSD::QName.new(NsC_30, "Sequence")], [0, 1]]
     ]
   )
 
@@ -1167,6 +1298,102 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
+    :class => Docusign::FolderFilter,
+    :schema_type => XSD::QName.new(NsC_30, "FolderFilter"),
+    :schema_element => [
+      ["accountId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccountId")], [0, 1]],
+      ["folderOwner", ["Docusign::UserInfo", XSD::QName.new(NsC_30, "FolderOwner")], [0, 1]],
+      ["folderTypeInfo", ["Docusign::FolderTypeInfo", XSD::QName.new(NsC_30, "FolderTypeInfo")], [0, 1]],
+      ["startPosition", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "StartPosition")], [0, 1]],
+      ["fromDate", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "FromDate")], [0, 1]],
+      ["toDate", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "ToDate")], [0, 1]],
+      ["searchText", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SearchText")], [0, 1]],
+      ["status", ["Docusign::EnvelopeStatusCode", XSD::QName.new(NsC_30, "Status")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::FolderTypeInfo,
+    :schema_type => XSD::QName.new(NsC_30, "FolderTypeInfo"),
+    :schema_element => [
+      ["folderType", ["Docusign::FolderType", XSD::QName.new(NsC_30, "FolderType")]],
+      ["folderName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "FolderName")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::FolderResults,
+    :schema_type => XSD::QName.new(NsC_30, "FolderResults"),
+    :schema_element => [
+      ["resultSetSize", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "ResultSetSize")]],
+      ["startPosition", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "StartPosition")]],
+      ["endPosition", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "EndPosition")]],
+      ["folderTypeInfo", ["Docusign::FolderTypeInfo", XSD::QName.new(NsC_30, "FolderTypeInfo")], [0, 1]],
+      ["folderItems", ["Docusign::ArrayOfFolderItem", XSD::QName.new(NsC_30, "FolderItems")]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfFolderItem,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfFolderItem"),
+    :schema_element => [
+      ["folderItem", ["Docusign::FolderItem[]", XSD::QName.new(NsC_30, "FolderItem")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::FolderItem,
+    :schema_type => XSD::QName.new(NsC_30, "FolderItem"),
+    :schema_element => [
+      ["envelopeId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "EnvelopeId")], [0, 1]],
+      ["status", ["Docusign::EnvelopeStatusCode", XSD::QName.new(NsC_30, "Status")]],
+      ["owner", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "Owner")], [0, 1]],
+      ["senderName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SenderName")], [0, 1]],
+      ["senderEmail", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SenderEmail")], [0, 1]],
+      ["senderCompany", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SenderCompany")], [0, 1]],
+      ["recipientStatuses", ["Docusign::ArrayOfRecipientStatus", XSD::QName.new(NsC_30, "RecipientStatuses")], [0, 1]],
+      ["customFields", ["Docusign::ArrayOfCustomField", XSD::QName.new(NsC_30, "CustomFields")], [0, 1]],
+      ["created", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "Created")], [0, 1]],
+      ["sent", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "Sent")], [0, 1]],
+      ["completed", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "Completed")], [0, 1]],
+      ["subject", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "Subject")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::FoldersFilter,
+    :schema_type => XSD::QName.new(NsC_30, "FoldersFilter"),
+    :schema_element => [
+      ["accountId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccountId")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::AvailableFolders,
+    :schema_type => XSD::QName.new(NsC_30, "AvailableFolders"),
+    :schema_element => [
+      ["folders", ["Docusign::ArrayOfFolder", XSD::QName.new(NsC_30, "Folders")]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::ArrayOfFolder,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfFolder"),
+    :schema_element => [
+      ["folder", ["Docusign::Folder[]", XSD::QName.new(NsC_30, "Folder")], [0, nil]]
+    ]
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::Folder,
+    :schema_type => XSD::QName.new(NsC_30, "Folder"),
+    :schema_element => [
+      ["folderOwner", ["Docusign::UserInfo", XSD::QName.new(NsC_30, "FolderOwner")], [0, 1]],
+      ["folderTypeInfo", ["Docusign::FolderTypeInfo", XSD::QName.new(NsC_30, "FolderTypeInfo")], [0, 1]]
+    ]
+  )
+
+  EncodedRegistry.register(
     :class => Docusign::RecipientTypeCode,
     :schema_type => XSD::QName.new(NsC_30, "RecipientTypeCode")
   )
@@ -1212,6 +1439,11 @@ module DefaultMappingRegistry
   )
 
   EncodedRegistry.register(
+    :class => Docusign::EnvelopeEventStatusCode,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeEventStatusCode")
+  )
+
+  EncodedRegistry.register(
     :class => Docusign::RecipientStatusCode,
     :schema_type => XSD::QName.new(NsC_30, "RecipientStatusCode")
   )
@@ -1249,6 +1481,11 @@ module DefaultMappingRegistry
   EncodedRegistry.register(
     :class => Docusign::PhoneNumberDesignation,
     :schema_type => XSD::QName.new(NsC_30, "PhoneNumberDesignation")
+  )
+
+  EncodedRegistry.register(
+    :class => Docusign::FolderType,
+    :schema_type => XSD::QName.new(NsC_30, "FolderType")
   )
 
   LiteralRegistry.register(
@@ -1273,7 +1510,8 @@ module DefaultMappingRegistry
       ["envelopeAttachment", ["Docusign::ArrayOfAttachment", XSD::QName.new(NsC_30, "EnvelopeAttachment")], [0, 1]],
       ["enforceSignerVisibility", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnforceSignerVisibility")], [0, 1]],
       ["enableWetSign", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnableWetSign")], [0, 1]],
-      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]]
+      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]],
+      ["eventNotification", ["Docusign::EventNotification", XSD::QName.new(NsC_30, "EventNotification")], [0, 1]]
     ]
   )
 
@@ -1339,7 +1577,7 @@ module DefaultMappingRegistry
       ["type", ["Docusign::RecipientTypeCode", XSD::QName.new(NsC_30, "Type")]],
       ["accessCode", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccessCode")]],
       ["addAccessCodeToEmail", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AddAccessCodeToEmail")], [0, 1]],
-      ["requireIDLookup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireIDLookup")]],
+      ["requireIDLookup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireIDLookup")], [0, 1]],
       ["iDCheckConfigurationName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "IDCheckConfigurationName")], [0, 1]],
       ["phoneAuthentication", ["Docusign::RecipientPhoneAuthentication", XSD::QName.new(NsC_30, "PhoneAuthentication")], [0, 1]],
       ["signatureInfo", ["Docusign::RecipientSignatureInfo", XSD::QName.new(NsC_30, "SignatureInfo")], [0, 1]],
@@ -1353,7 +1591,8 @@ module DefaultMappingRegistry
       ["roleName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "RoleName")], [0, 1]],
       ["templateLocked", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateLocked")], [0, 1]],
       ["templateRequired", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateRequired")], [0, 1]],
-      ["templateAccessCodeRequired", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateAccessCodeRequired")], [0, 1]]
+      ["templateAccessCodeRequired", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "TemplateAccessCodeRequired")], [0, 1]],
+      ["defaultRecipient", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "DefaultRecipient")], [0, 1]]
     ]
   )
 
@@ -1547,7 +1786,8 @@ module DefaultMappingRegistry
       ["conditionalParentLabel", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ConditionalParentLabel")], [0, 1]],
       ["conditionalParentValue", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ConditionalParentValue")], [0, 1]],
       ["sharedTab", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "SharedTab")], [0, 1]],
-      ["requireInitialOnSharedTabChange", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireInitialOnSharedTabChange")], [0, 1]]
+      ["requireInitialOnSharedTabChange", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "RequireInitialOnSharedTabChange")], [0, 1]],
+      ["concealValueOnDocument", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "ConcealValueOnDocument")], [0, 1]]
     ]
   )
 
@@ -1622,6 +1862,33 @@ module DefaultMappingRegistry
       ["expireEnabled", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "ExpireEnabled")]],
       ["expireAfter", ["SOAP::SOAPNonNegativeInteger", XSD::QName.new(NsC_30, "ExpireAfter")], [0, 1]],
       ["expireWarn", ["SOAP::SOAPNonNegativeInteger", XSD::QName.new(NsC_30, "ExpireWarn")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::EventNotification,
+    :schema_type => XSD::QName.new(NsC_30, "EventNotification"),
+    :schema_element => [
+      ["uRL", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "URL")], [0, 1]],
+      ["loggingEnabled", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "LoggingEnabled")], [0, 1]],
+      ["envelopeEvents", ["Docusign::ArrayOfEnvelopeEvent", XSD::QName.new(NsC_30, "EnvelopeEvents")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfEnvelopeEvent,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfEnvelopeEvent"),
+    :schema_element => [
+      ["envelopeEvent", ["Docusign::EnvelopeEvent[]", XSD::QName.new(NsC_30, "EnvelopeEvent")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::EnvelopeEvent,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeEvent"),
+    :schema_element => [
+      ["envelopeEventStatusCode", ["Docusign::EnvelopeEventStatusCode", XSD::QName.new(NsC_30, "EnvelopeEventStatusCode")]],
+      ["includeDocuments", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "IncludeDocuments")]]
     ]
   )
 
@@ -1760,7 +2027,8 @@ module DefaultMappingRegistry
       ["roleName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "RoleName")], [0, 1]],
       ["listValues", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ListValues")], [0, 1]],
       ["listSelectedValue", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "ListSelectedValue")], [0, 1]],
-      ["scaleValue", ["SOAP::SOAPDecimal", XSD::QName.new(NsC_30, "ScaleValue")], [0, 1]]
+      ["scaleValue", ["SOAP::SOAPDecimal", XSD::QName.new(NsC_30, "ScaleValue")], [0, 1]],
+      ["customTabType", ["Docusign::CustomTabType", XSD::QName.new(NsC_30, "CustomTabType")], [0, 1]]
     ]
   )
 
@@ -1997,6 +2265,44 @@ module DefaultMappingRegistry
     :schema_type => XSD::QName.new(NsC_30, "ArrayOfString2"),
     :schema_element => [
       ["envelopeId", ["SOAP::SOAPString[]", XSD::QName.new(NsC_30, "EnvelopeId")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::FilteredEnvelopeStatusChanges,
+    :schema_type => XSD::QName.new(NsC_30, "FilteredEnvelopeStatusChanges"),
+    :schema_element => [
+      ["resultSetSize", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "ResultSetSize")]],
+      ["envelopeStatusChanges", ["Docusign::ArrayOfEnvelopeStatusChange", XSD::QName.new(NsC_30, "EnvelopeStatusChanges")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfEnvelopeStatusChange,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfEnvelopeStatusChange"),
+    :schema_element => [
+      ["envelopeStatusChange", ["Docusign::EnvelopeStatusChange[]", XSD::QName.new(NsC_30, "EnvelopeStatusChange")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::EnvelopeStatusChange,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeStatusChange"),
+    :schema_element => [
+      ["envelopeID", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "EnvelopeID")], [0, 1]],
+      ["status", ["Docusign::EnvelopeStatusCode", XSD::QName.new(NsC_30, "Status")]],
+      ["statusChanged", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "StatusChanged")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::EnvelopeStatusChangeFilter,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeStatusChangeFilter"),
+    :schema_element => [
+      ["accountId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccountId")], [0, 1]],
+      ["userInfo", ["Docusign::UserInfo", XSD::QName.new(NsC_30, "UserInfo")], [0, 1]],
+      ["statusChangedSince", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "StatusChangedSince")]],
+      ["statuses", ["Docusign::ArrayOfEnvelopeStatusCode", XSD::QName.new(NsC_30, "Statuses")], [0, 1]]
     ]
   )
 
@@ -2260,7 +2566,69 @@ module DefaultMappingRegistry
       ["enforceSignerVisibility", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnforceSignerVisibility")], [0, 1]],
       ["enableWetSign", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "EnableWetSign")], [0, 1]],
       ["allowRecipientRecursion", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowRecipientRecursion")], [0, 1]],
-      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]]
+      ["allowMarkup", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AllowMarkup")], [0, 1]],
+      ["eventNotification", ["Docusign::EventNotification", XSD::QName.new(NsC_30, "EventNotification")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfCompositeTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfCompositeTemplate"),
+    :schema_element => [
+      ["compositeTemplate", ["Docusign::CompositeTemplate[]", XSD::QName.new(NsC_30, "CompositeTemplate")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::CompositeTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "CompositeTemplate"),
+    :schema_element => [
+      ["serverTemplates", ["Docusign::ArrayOfServerTemplate", XSD::QName.new(NsC_30, "ServerTemplates")], [0, 1]],
+      ["inlineTemplates", ["Docusign::ArrayOfInlineTemplate", XSD::QName.new(NsC_30, "InlineTemplates")], [0, 1]],
+      ["pDFMetaDataTemplate", ["Docusign::PDFMetaDataTemplate", XSD::QName.new(NsC_30, "PDFMetaDataTemplate")], [0, 1]],
+      ["document", ["Docusign::Document", XSD::QName.new(NsC_30, "Document")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfServerTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfServerTemplate"),
+    :schema_element => [
+      ["serverTemplate", ["Docusign::ServerTemplate[]", XSD::QName.new(NsC_30, "ServerTemplate")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ServerTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ServerTemplate"),
+    :schema_element => [
+      ["sequence", ["SOAP::SOAPPositiveInteger", XSD::QName.new(NsC_30, "Sequence")], [0, 1]],
+      ["templateID", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "TemplateID")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfInlineTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfInlineTemplate"),
+    :schema_element => [
+      ["inlineTemplate", ["Docusign::InlineTemplate[]", XSD::QName.new(NsC_30, "InlineTemplate")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::InlineTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "InlineTemplate"),
+    :schema_element => [
+      ["sequence", ["SOAP::SOAPPositiveInteger", XSD::QName.new(NsC_30, "Sequence")], [0, 1]],
+      ["envelope", ["Docusign::Envelope", XSD::QName.new(NsC_30, "Envelope")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::PDFMetaDataTemplate,
+    :schema_type => XSD::QName.new(NsC_30, "PDFMetaDataTemplate"),
+    :schema_element => [
+      ["sequence", ["SOAP::SOAPPositiveInteger", XSD::QName.new(NsC_30, "Sequence")], [0, 1]]
     ]
   )
 
@@ -2409,6 +2777,102 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
+    :class => Docusign::FolderFilter,
+    :schema_type => XSD::QName.new(NsC_30, "FolderFilter"),
+    :schema_element => [
+      ["accountId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccountId")], [0, 1]],
+      ["folderOwner", ["Docusign::UserInfo", XSD::QName.new(NsC_30, "FolderOwner")], [0, 1]],
+      ["folderTypeInfo", ["Docusign::FolderTypeInfo", XSD::QName.new(NsC_30, "FolderTypeInfo")], [0, 1]],
+      ["startPosition", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "StartPosition")], [0, 1]],
+      ["fromDate", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "FromDate")], [0, 1]],
+      ["toDate", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "ToDate")], [0, 1]],
+      ["searchText", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SearchText")], [0, 1]],
+      ["status", ["Docusign::EnvelopeStatusCode", XSD::QName.new(NsC_30, "Status")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::FolderTypeInfo,
+    :schema_type => XSD::QName.new(NsC_30, "FolderTypeInfo"),
+    :schema_element => [
+      ["folderType", ["Docusign::FolderType", XSD::QName.new(NsC_30, "FolderType")]],
+      ["folderName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "FolderName")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::FolderResults,
+    :schema_type => XSD::QName.new(NsC_30, "FolderResults"),
+    :schema_element => [
+      ["resultSetSize", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "ResultSetSize")]],
+      ["startPosition", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "StartPosition")]],
+      ["endPosition", ["SOAP::SOAPInt", XSD::QName.new(NsC_30, "EndPosition")]],
+      ["folderTypeInfo", ["Docusign::FolderTypeInfo", XSD::QName.new(NsC_30, "FolderTypeInfo")], [0, 1]],
+      ["folderItems", ["Docusign::ArrayOfFolderItem", XSD::QName.new(NsC_30, "FolderItems")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfFolderItem,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfFolderItem"),
+    :schema_element => [
+      ["folderItem", ["Docusign::FolderItem[]", XSD::QName.new(NsC_30, "FolderItem")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::FolderItem,
+    :schema_type => XSD::QName.new(NsC_30, "FolderItem"),
+    :schema_element => [
+      ["envelopeId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "EnvelopeId")], [0, 1]],
+      ["status", ["Docusign::EnvelopeStatusCode", XSD::QName.new(NsC_30, "Status")]],
+      ["owner", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "Owner")], [0, 1]],
+      ["senderName", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SenderName")], [0, 1]],
+      ["senderEmail", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SenderEmail")], [0, 1]],
+      ["senderCompany", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "SenderCompany")], [0, 1]],
+      ["recipientStatuses", ["Docusign::ArrayOfRecipientStatus", XSD::QName.new(NsC_30, "RecipientStatuses")], [0, 1]],
+      ["customFields", ["Docusign::ArrayOfCustomField", XSD::QName.new(NsC_30, "CustomFields")], [0, 1]],
+      ["created", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "Created")], [0, 1]],
+      ["sent", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "Sent")], [0, 1]],
+      ["completed", ["SOAP::SOAPDateTime", XSD::QName.new(NsC_30, "Completed")], [0, 1]],
+      ["subject", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "Subject")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::FoldersFilter,
+    :schema_type => XSD::QName.new(NsC_30, "FoldersFilter"),
+    :schema_element => [
+      ["accountId", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "AccountId")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::AvailableFolders,
+    :schema_type => XSD::QName.new(NsC_30, "AvailableFolders"),
+    :schema_element => [
+      ["folders", ["Docusign::ArrayOfFolder", XSD::QName.new(NsC_30, "Folders")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::ArrayOfFolder,
+    :schema_type => XSD::QName.new(NsC_30, "ArrayOfFolder"),
+    :schema_element => [
+      ["folder", ["Docusign::Folder[]", XSD::QName.new(NsC_30, "Folder")], [0, nil]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::Folder,
+    :schema_type => XSD::QName.new(NsC_30, "Folder"),
+    :schema_element => [
+      ["folderOwner", ["Docusign::UserInfo", XSD::QName.new(NsC_30, "FolderOwner")], [0, 1]],
+      ["folderTypeInfo", ["Docusign::FolderTypeInfo", XSD::QName.new(NsC_30, "FolderTypeInfo")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
     :class => Docusign::RecipientTypeCode,
     :schema_type => XSD::QName.new(NsC_30, "RecipientTypeCode")
   )
@@ -2454,6 +2918,11 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
+    :class => Docusign::EnvelopeEventStatusCode,
+    :schema_type => XSD::QName.new(NsC_30, "EnvelopeEventStatusCode")
+  )
+
+  LiteralRegistry.register(
     :class => Docusign::RecipientStatusCode,
     :schema_type => XSD::QName.new(NsC_30, "RecipientStatusCode")
   )
@@ -2491,6 +2960,11 @@ module DefaultMappingRegistry
   LiteralRegistry.register(
     :class => Docusign::PhoneNumberDesignation,
     :schema_type => XSD::QName.new(NsC_30, "PhoneNumberDesignation")
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::FolderType,
+    :schema_type => XSD::QName.new(NsC_30, "FolderType")
   )
 
   LiteralRegistry.register(
@@ -2591,6 +3065,23 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
+    :class => Docusign::RequestPDFWithCert,
+    :schema_name => XSD::QName.new(NsC_30, "RequestPDFWithCert"),
+    :schema_element => [
+      ["envelopeID", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "EnvelopeID")], [0, 1]],
+      ["addWaterMark", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "AddWaterMark")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestPDFWithCertResponse,
+    :schema_name => XSD::QName.new(NsC_30, "RequestPDFWithCertResponse"),
+    :schema_element => [
+      ["requestPDFWithCertResult", ["Docusign::EnvelopePDF", XSD::QName.new(NsC_30, "RequestPDFWithCertResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
     :class => Docusign::RequestDocumentPDFs,
     :schema_name => XSD::QName.new(NsC_30, "RequestDocumentPDFs"),
     :schema_element => [
@@ -2669,6 +3160,38 @@ module DefaultMappingRegistry
     :schema_name => XSD::QName.new(NsC_30, "RequestStatusResponse"),
     :schema_element => [
       ["requestStatusResult", ["Docusign::EnvelopeStatus", XSD::QName.new(NsC_30, "RequestStatusResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestStatusCodes,
+    :schema_name => XSD::QName.new(NsC_30, "RequestStatusCodes"),
+    :schema_element => [
+      ["envelopeStatusFilter", ["Docusign::EnvelopeStatusFilter", XSD::QName.new(NsC_30, "EnvelopeStatusFilter")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestStatusCodesResponse,
+    :schema_name => XSD::QName.new(NsC_30, "RequestStatusCodesResponse"),
+    :schema_element => [
+      ["requestStatusCodesResult", ["Docusign::FilteredEnvelopeStatusChanges", XSD::QName.new(NsC_30, "RequestStatusCodesResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestStatusChanges,
+    :schema_name => XSD::QName.new(NsC_30, "RequestStatusChanges"),
+    :schema_element => [
+      ["envelopeStatusChangeFilter", ["Docusign::EnvelopeStatusChangeFilter", XSD::QName.new(NsC_30, "EnvelopeStatusChangeFilter")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestStatusChangesResponse,
+    :schema_name => XSD::QName.new(NsC_30, "RequestStatusChangesResponse"),
+    :schema_element => [
+      ["requestStatusChangesResult", ["Docusign::FilteredEnvelopeStatusChanges", XSD::QName.new(NsC_30, "RequestStatusChangesResult")], [0, 1]]
     ]
   )
 
@@ -2922,6 +3445,24 @@ module DefaultMappingRegistry
   )
 
   LiteralRegistry.register(
+    :class => Docusign::CreateEnvelopeFromTemplatesAndForms,
+    :schema_name => XSD::QName.new(NsC_30, "CreateEnvelopeFromTemplatesAndForms"),
+    :schema_element => [
+      ["envelopeInformation", ["Docusign::EnvelopeInformation", XSD::QName.new(NsC_30, "EnvelopeInformation")], [0, 1]],
+      ["compositeTemplates", ["Docusign::ArrayOfCompositeTemplate", XSD::QName.new(NsC_30, "CompositeTemplates")], [0, 1]],
+      ["activateEnvelope", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "ActivateEnvelope")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::CreateEnvelopeFromTemplatesAndFormsResponse,
+    :schema_name => XSD::QName.new(NsC_30, "CreateEnvelopeFromTemplatesAndFormsResponse"),
+    :schema_element => [
+      ["createEnvelopeFromTemplatesAndFormsResult", ["Docusign::EnvelopeStatus", XSD::QName.new(NsC_30, "CreateEnvelopeFromTemplatesAndFormsResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
     :class => Docusign::GetStatusInDocuSignConnectFormat,
     :schema_name => XSD::QName.new(NsC_30, "GetStatusInDocuSignConnectFormat"),
     :schema_element => [
@@ -3138,6 +3679,55 @@ module DefaultMappingRegistry
     :schema_name => XSD::QName.new(NsC_30, "RequestCorrectTokenResponse"),
     :schema_element => [
       ["requestCorrectTokenResult", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "RequestCorrectTokenResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::GetFolderItems,
+    :schema_name => XSD::QName.new(NsC_30, "GetFolderItems"),
+    :schema_element => [
+      ["folderFilter", ["Docusign::FolderFilter", XSD::QName.new(NsC_30, "FolderFilter")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::GetFolderItemsResponse,
+    :schema_name => XSD::QName.new(NsC_30, "GetFolderItemsResponse"),
+    :schema_element => [
+      ["getFolderItemsResult", ["Docusign::FolderResults", XSD::QName.new(NsC_30, "GetFolderItemsResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::GetFolderList,
+    :schema_name => XSD::QName.new(NsC_30, "GetFolderList"),
+    :schema_element => [
+      ["foldersFilter", ["Docusign::FoldersFilter", XSD::QName.new(NsC_30, "FoldersFilter")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::GetFolderListResponse,
+    :schema_name => XSD::QName.new(NsC_30, "GetFolderListResponse"),
+    :schema_element => [
+      ["getFolderListResult", ["Docusign::AvailableFolders", XSD::QName.new(NsC_30, "GetFolderListResult")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestEnvelope,
+    :schema_name => XSD::QName.new(NsC_30, "RequestEnvelope"),
+    :schema_element => [
+      ["envelopeID", ["SOAP::SOAPString", XSD::QName.new(NsC_30, "EnvelopeID")], [0, 1]],
+      ["includeDocumentBytes", ["SOAP::SOAPBoolean", XSD::QName.new(NsC_30, "IncludeDocumentBytes")]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::RequestEnvelopeResponse,
+    :schema_name => XSD::QName.new(NsC_30, "RequestEnvelopeResponse"),
+    :schema_element => [
+      ["requestEnvelopeResult", ["Docusign::Envelope", XSD::QName.new(NsC_30, "RequestEnvelopeResult")], [0, 1]]
     ]
   )
 end

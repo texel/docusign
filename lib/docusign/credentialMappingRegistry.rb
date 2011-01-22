@@ -144,6 +144,26 @@ module DefaultMappingRegistry
       ["requestSenderTokenResult", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "RequestSenderTokenResult")], [0, 1]]
     ]
   )
+
+  LiteralRegistry.register(
+    :class => Docusign::Credential::RequestCorrectToken,
+    :schema_name => XSD::QName.new(NsCredential, "RequestCorrectToken"),
+    :schema_element => [
+      ["email", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "Email")], [0, 1]],
+      ["password", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "Password")], [0, 1]],
+      ["envelopeID", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "EnvelopeID")], [0, 1]],
+      ["suppressNavigation", ["SOAP::SOAPBoolean", XSD::QName.new(NsCredential, "SuppressNavigation")]],
+      ["returnURL", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "ReturnURL")], [0, 1]]
+    ]
+  )
+
+  LiteralRegistry.register(
+    :class => Docusign::Credential::RequestCorrectTokenResponse,
+    :schema_name => XSD::QName.new(NsCredential, "RequestCorrectTokenResponse"),
+    :schema_element => [
+      ["requestCorrectTokenResult", ["SOAP::SOAPString", XSD::QName.new(NsCredential, "RequestCorrectTokenResult")], [0, 1]]
+    ]
+  )
 end
 
 end; end

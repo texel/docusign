@@ -160,5 +160,37 @@ class RequestSenderTokenResponse
   end
 end
 
+# {http://www.docusign.net/API/Credential}RequestCorrectToken
+#   email - SOAP::SOAPString
+#   password - SOAP::SOAPString
+#   envelopeID - SOAP::SOAPString
+#   suppressNavigation - SOAP::SOAPBoolean
+#   returnURL - SOAP::SOAPString
+class RequestCorrectToken
+  attr_accessor :email
+  attr_accessor :password
+  attr_accessor :envelopeID
+  attr_accessor :suppressNavigation
+  attr_accessor :returnURL
+
+  def initialize(email = nil, password = nil, envelopeID = nil, suppressNavigation = nil, returnURL = nil)
+    @email = email
+    @password = password
+    @envelopeID = envelopeID
+    @suppressNavigation = suppressNavigation
+    @returnURL = returnURL
+  end
+end
+
+# {http://www.docusign.net/API/Credential}RequestCorrectTokenResponse
+#   requestCorrectTokenResult - SOAP::SOAPString
+class RequestCorrectTokenResponse
+  attr_accessor :requestCorrectTokenResult
+
+  def initialize(requestCorrectTokenResult = nil)
+    @requestCorrectTokenResult = requestCorrectTokenResult
+  end
+end
+
 
 end; end
