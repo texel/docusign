@@ -42,6 +42,13 @@ task :cultivate do
   system "rake debug_gem | grep -v \"(in \" > `basename \\`pwd\\``.gemspec"
 end
 
+#Test tasks
+require 'rspec'
+require 'rspec/core/rake_task'
+desc 'Run the unit tests'
+RSpec::Core::RakeTask.new(:test)
+#End test tasks
+
 namespace :docusign do
   namespace :services do
     desc "Generate SOAP stubs for Docusign API"
