@@ -48,7 +48,7 @@ module AutoCamelize
   
   def ds_equivalent(string)
     string = string.to_s.camelize(:lower)
-    methods.find { |m| m.downcase == string.downcase }
+    methods.find { |m| m.to_s.downcase == string.downcase }
   end
 end
 
