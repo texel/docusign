@@ -14,8 +14,9 @@
 # PARTICULAR PURPOSE.
 		 
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
- 
+
 gem 'soap4r'
+require 'activesupport'
 require 'active_support'
 
 require 'docusign/utilities'
