@@ -5,7 +5,7 @@ require 'soap/rpc/driver'
 module Docusign::AccountManagement
 
 class AccountManagementServiceSoap < ::SOAP::RPC::Driver
-  DefaultEndpointUrl = "https://www.docusign.net/api/3.0/AccountManagement.asmx"
+  DefaultEndpointUrl = "https://demo.docusign.net/api/3.0/AccountManagement.asmx"
 
   Methods = [
     [ "http://www.docusign.net/API/AccountManagement/UpgradeRecipientAccount",
