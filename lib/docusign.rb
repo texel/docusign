@@ -30,6 +30,10 @@ require 'docusign/integrators_key_auth_header_handler'
 require 'docusign/credential'
 require 'docusign/credentialDriver'
 require 'docusign/credentialMappingRegistry'
+require 'docusign/account_management'
+require 'docusign/account_managementDriver'
+require 'docusign/account_managementMappingRegistry'
+
 
 require 'docusign/document'
 require 'docusign/tab'
