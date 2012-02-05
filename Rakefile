@@ -16,7 +16,7 @@
 require 'rubygems'
 require './lib/docusign.rb'
 
-gem 'soap4r'
+gem 'mumboe-soap4r'
 require 'wsdl/soap/wsdl2ruby'
 
 begin
