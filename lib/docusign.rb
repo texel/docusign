@@ -15,7 +15,7 @@
 		 
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
 
-gem 'mumboe-soap4r'
+gem 'bvandenbos-soap4r'
 require 'active_support'
 
 require 'docusign/utilities'
