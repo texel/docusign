@@ -44,11 +44,19 @@ module Docusign
       end
       
       def credentials(email, password, endpoint_url=nil)
-        
+
         connection = Docusign::Credential::CredentialSoap.new
+        connection = configure_ssl(connection)
+
         connection.endpoint_url = endpoint_url if endpoint_url
-        
+
         connection.login(:email => email, :password => password).loginResult        
+      end
+
+      def configure_ssl(connection)
+        connection.options["protocol.http.ssl_config.verify_mode"] = Docusign::Config[:verify_mode] if Docusign::Config[:verify_mode]
+      	connection.options["protocol.http.ssl_config.ca_file"] = Docusign::Config[:ca_file] if Docusign::Config[:ca_file]
+        connection
       end
     end
   end
