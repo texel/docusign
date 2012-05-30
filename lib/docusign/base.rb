@@ -20,6 +20,7 @@ module Docusign
       def login(options={})
         
         connection  = Docusign::APIServiceSoap.new
+        connection = configure_ssl(connection)
         
         if options[:integrators_key]
           header = IntegratorsKeyAuthHeaderHandler.new(
