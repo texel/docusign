@@ -10,9 +10,10 @@ A library for communicating with the Docusign API via SOAP.
 == Making An API Call
 
   connection = Docusign::Base.login(
-    :user_name    => 'your_user_name',
-    :password     => 'your_password',
-    :endpoint_url => 'http://demo.docusign.net/API/3.0'
+    :integrators_key  => 'your_integrators_key',
+    :email            => 'your_user_name',
+    :password         => 'your_password',
+    :endpoint_url     => 'http://demo.docusign.net/API/3.0/dsapi.asmx'
   )
 
   connection.request_status :envelope_id => '12345'
