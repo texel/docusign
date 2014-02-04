@@ -14,8 +14,8 @@
 # PARTICULAR PURPOSE.
 		 
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
- 
-gem 'soap4r'
+
+gem 'bvandenbos-soap4r'
 require 'active_support'
 
 require 'docusign/utilities'
@@ -29,6 +29,10 @@ require 'docusign/integrators_key_auth_header_handler'
 require 'docusign/credential'
 require 'docusign/credentialDriver'
 require 'docusign/credentialMappingRegistry'
+require 'docusign/account_management'
+require 'docusign/account_managementDriver'
+require 'docusign/account_managementMappingRegistry'
+
 
 require 'docusign/document'
 require 'docusign/tab'

@@ -16,7 +16,7 @@
 require 'rubygems'
 require './lib/docusign.rb'
 
-gem 'soap4r'
+gem 'bvandenbos-soap4r'
 require 'wsdl/soap/wsdl2ruby'
 
 begin
@@ -54,6 +54,12 @@ namespace :docusign do
     task :generate_credential_api do
       wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/wsdl/DocuSign3.0.2CredentialAPI.wsdl")
       wsdl2ruby('docusign/credential', 'Docusign::Credential', "file://#{wsdl_path}")
+    end
+    
+    desc "Generate SOAP stubs for Docusign Account Management API"
+    task :generate_account_management_api do
+      wsdl_path = File.expand_path(File.dirname(__FILE__) + "/lib/wsdl/Docusign3.0.2AccountManagementAPI.wsdl")
+      wsdl2ruby('docusign/account_management', 'Docusign::AccountManagement', "file://#{wsdl_path}")      
     end
   end
 end

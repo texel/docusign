@@ -44,12 +44,18 @@ module Docusign
       end
       
       def credentials(email, password, endpoint_url=nil)
-        
         connection = Docusign::Credential::CredentialSoap.new
         connection.endpoint_url = endpoint_url if endpoint_url
         
         connection.login(:email => email, :password => password).loginResult        
       end
+      
+      def account_management(endpoint_url = nil)
+        connection = Docusign::AccountManagement::AccountManagementServiceSoap.new
+        connection.endpoint_url = endpoint_url if endpoint_url
+        connection
+      end
+      
     end
   end
 end

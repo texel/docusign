@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{docusign}
-  s.version = "0.8.0"
+  s.version = "0.8.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Leigh Caplan"]
@@ -52,6 +52,7 @@ with familiar Ruby-like syntax.
      "lib/wsdl/DocuSign3.0.11API.wsdl",
      "lib/wsdl/DocuSign3.0.2API.wsdl",
      "lib/wsdl/DocuSign3.0.2CredentialAPI.wsdl",
+     "lib/wsdl/Docusign3.0.2AccountManagementAPI.wsdl",
      "spec/docusign/builder/anchor_builder_spec.rb",
      "spec/docusign/builder/tab_builder_spec.rb",
      "spec/docusign/document_spec.rb",
