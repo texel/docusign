@@ -373,6 +373,7 @@ class APIServiceSoap < ::SOAP::RPC::Driver
     super(endpoint_url, nil)
     self.mapping_registry = DefaultMappingRegistry::EncodedRegistry
     self.literal_mapping_registry = DefaultMappingRegistry::LiteralRegistry
+    self.wiredump_dev=STDERR if Rails.env == "development" rescue nil
     init_methods
   end
 
